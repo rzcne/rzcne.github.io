@@ -4,12 +4,11 @@
 <lastmod>2024-10-23</lastmod>
 <changefreq>yearly</changefreq>
 <priority>1.00</priority>
-</url>
-
+</url> 
 
 <url>
 <loc>https://bingbook.cn/index.html</loc>
-<lastmod>2024-10-23T04:24:49+00:00</lastmod>
+<lastmod>2024-10-23</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.80</priority>
 </url>
@@ -21,6 +20,8 @@
 <changefreq>monthly</changefreq>
 <priority>0.80</priority>
 
+
+  
 </url>
 <url>
 <loc>https://news.bingbook.cn/</loc>
@@ -28,7 +29,6 @@
 <changefreq>yearly</changefreq>
 <priority>1.00</priority>
 </url>
-
 
 <url>
 <loc>https://news.bingbook.cn/2024</loc>
@@ -44,4 +44,18 @@
 <priority>0.80</priority>
 </url>
 
+<url>
+<loc>https://www.cf.cdn.bingbook.cn/</loc>
+<lastmod>2024-10-24</lastmod>
+<changefreq>yearly</changefreq>
+<priority>1.00</priority>
+</url>
+
+<url>
+<loc>https://fanyi.bingbook.cn/</loc>
+<lastmod>2024-10-24</lastmod>
+<changefreq>yearly</changefreq>
+<priority>1.00</priority>
+</url>
+  
 </urlset>
