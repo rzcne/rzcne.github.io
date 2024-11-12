@@ -45,6 +45,13 @@
 </url>
 
 <url>
+<loc>https://news.bingbook.cn/2024/11monthly</loc>
+<lastmod>2024-11-11</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.80</priority>
+</url>
+
+<url>
 <loc>https://www.cf.cdn.bingbook.cn/</loc>
 <lastmod>2024-10-24</lastmod>
 <changefreq>yearly</changefreq>
