@@ -1,47 +1,6 @@
 <!doctype html>
 <html lang="en">
-  <head>
-	  
-<SCRIPT language=JavaScript> 
-
-function password() { 
-
-var testV = 1; 
-
-var pass1 = prompt('请输入密码:',''); 
-
-while (testV < 3) { 
-
-if (!pass1) 
-
-history.go(-1); 
-
-if (pass1 == "12345678") { 
-
-alert('密码正确!'); 
-
-break; 
-
-} 
-
-testV+=-1; 
-
-var pass1 = prompt('密码错误!请重新输入:'); 
-
-} 
-
-if (pass1!="password" &amp; testV ==3) 
-
-history.go(-1); 
-
-return " "; 
-
-} 
-
-document.write(password()); 
-
-</SCRIPT>
-	  
+  <head>  
 	  <!--ico图标-->
   <link rel="shortcut icon" type="image/x-icon" sizes="16x16" href="https://bingbook.cn/favicon16x16.ico">
   <link rel="shortcut icon" type="image/x-icon" sizes="32x32" href="https://bingbook.cn/favicon32x32.ico">
