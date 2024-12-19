@@ -92,14 +92,15 @@
         </div>
     </section>
 
-    <footer>
-        <p>Bingbook &copy; <span id="currentYear"></span> | <a href="mailto:mail@bingbook.cn">联系我们</a></p>
-    </footer>
+   <footer>
+        <p>© <span id="year"></span> 冰书 | 版权所有</p>
+    </footer>
 
-    <script>
-        // 获取当前年份并更新到页面中
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-    </script>
+    <script>
+        // 自动更新版权年份
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  
 </body>
 
 </html>
