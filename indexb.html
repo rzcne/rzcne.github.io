@@ -1,59 +1,121 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
-  <!-- ICO 图标 -->
-  <link rel="shortcut icon" type="image/x-icon" sizes="16x16" href="https://bingbook.cn/favicon16x16.ico">
-  <link rel="shortcut icon" type="image/x-icon" sizes="32x32" href="https://bingbook.cn/favicon32x32.ico">
-  <link rel="shortcut icon" type="image/x-icon" sizes="48x48" href="https://bingbook.cn/favicon48x48.ico">
-  
-  <meta charset="utf-8"> 
-  <title>冰书</title>
+    <!-- favicon图标 -->
+    <link rel="icon" type="image/x-icon" href="https://bingbook.cn/ico/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingbook 冰书</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #202124;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-  <style>
-    /* 全局样式 */
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
-      display: flex;
-      flex-direction: column; /* 垂直排列内容 */
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
+        header {
+            padding: 20px;
+            background-color: #ffffff;
+            color: #ff0000;
+            border-bottom: 2px solid #f1f1f1;
+            z-index: 1000;
+        }
 
-    /* 图片样式 */
-    img {
-      max-width: 100%;
-      height: auto;
-      border: none;
-    }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #ff0000;
+        }
 
-    /* 版权声明样式 */
-    footer {
-      margin-top: 20px;
-      font-size: 14px;
-      color: #555;
-    }
-  </style>
+        .content {
+            text-align: center;
+            padding: 80px 20px 20px;
+            max-width: 600px;
+            margin: auto;
+            font-size: 16px;
+        }
+
+        .hidden-content {
+            display: none;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        footer {
+            margin-top: auto;
+            background: #f1f1f1;
+            color: #202124;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+        }
+
+        a {
+            color: #4285f4;
+            text-decoration: none;
+        }
+
+        .more-link {
+            color: #4285f4;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        /* 媒体查询，调整字体大小以适应较小的设备 */
+        @media (max-width: 600px) {
+            .content {
+                font-size: 14px;
+            }
+            .hidden-content {
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
+
 <body>
+    <header>
+        <h1>Bingbook 冰书</h1>
+    </header>
 
-  <!-- 中心对齐的图片 -->
-  <img src="/vx.png" alt="Pulpit rock" width="600" height="600">
+    <main class="content">
+        <h2>欢迎来到 Bingbook</h2>
+        <p>在 Bingbook，我们致力于通过强大的领导者推动业务的蓬勃发展。每项业务都将有一位出色的 CEO 负责，我们将为他们提供必要的支持。我们的目标是确保每项业务的独立性和持续增长，同时保持对资本分配的严谨管理。</p>
+        
+        <div class="hidden-content" id="hiddenContent">
+            <p>Bingbook 这个名字代表着知识的集合，知识是人类最重要的宝贵财富之一，同时它意味着高于基准的投资回报，这是我们努力追求的！我们并不打算让它成为一个拥有相关产品的大型消费品牌，重点是 Bingbook 应该独立并发展自己的品牌。</p>
+            <p>如果您有任何问题或需要联系我们，请发送电子邮件至 <a href="mailto:mail@bingbook.cn">mail@bingbook.cn</a>。</p>
+        </div>
+        
+        <span class="more-link" id="moreLink">更多</span>
+    </main>
 
-  <!-- 版权声明 -->
-  <footer>
-    <p>© <span id="year"></span> 冰书  </p>
-  </footer>
+    <footer>
+        <p>© <span id="year"></span> 冰书 | 版权所有</p>
+    </footer>
 
-  <script>
-    // 自动更新年份
-    const currentYear = new Date().getFullYear();
-    document.getElementById('year').textContent = currentYear;
-  </script>
-  
+    <script>
+        // 自动更新版权年份
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // 更多链接点击事件
+        document.getElementById("moreLink").addEventListener("click", function() {
+            const hiddenContent = document.getElementById("hiddenContent");
+            if (hiddenContent.style.display === "none" || hiddenContent.style.display === "") {
+                hiddenContent.style.display = "block";
+                this.textContent = "收起";
+            } else {
+                hiddenContent.style.display = "none";
+                this.textContent = "更多";
+            }
+        });
+    </script>
 </body>
+
 </html>
