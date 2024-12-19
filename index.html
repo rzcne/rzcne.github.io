@@ -2,7 +2,6 @@
 <html lang="zh">
 
 <head>
-    
     <!--ico图标-->
     <link rel="shortcut icon" type="image/x-icon" sizes="16x16" href="https://bingbook.cn/ico/favicon16x16.ico">
     <link rel="shortcut icon" type="image/x-icon" sizes="32x32" href="https://bingbook.cn/ico/favicon32x32.ico">
@@ -25,18 +24,24 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            align-items: center;
-            justify-content: center;
+            overflow: hidden; /* 防止页面滚动时出现滚动条 */
         }
 
         header {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: fixed; /* 固定头部 */
+            top: 0; /* 顶部位置 */
+            left: 0;
+            right: 0;
             padding: 20px;
-            width: 100%;
-            background-color: transparent;
+            background-color: #ffffff; /* 背景色 */
             color: #ff0000;
+            border-bottom: 2px solid #f1f1f1; /* 添加横向线 */
+            z-index: 1000; /* 确保在其他元素之上 */
+            transition: transform 0.3s; /* 添加平滑过渡效果 */
+        }
+
+        header.hidden {
+            transform: translateY(-100%); /* 升起头部，隐藏 */
         }
 
         header h1 {
@@ -47,8 +52,9 @@
 
         .content {
             text-align: center;
-            padding: 20px;
+            padding: 80px 20px 20px; /* 上边距增加以避免被固定头部遮挡 */
             max-width: 600px;
+            margin: auto; /* 居中内容 */
         }
 
         footer {
@@ -79,7 +85,7 @@
 </head>
 
 <body>
-    <header>
+    <header id="header">
         <h1>Bingbook 冰书</h1>
     </header>
 
@@ -111,6 +117,21 @@
                 hiddenContent.style.display = "none";
                 this.textContent = "更多";
             }
+        });
+
+        // 监听滚动事件以隐藏或显示头部
+        let lastScrollTop = 0;
+        window.addEventListener("scroll", function() {
+            const header = document.getElementById("header");
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop) {
+                // 向下滚动，隐藏头部
+                header.classList.add("hidden");
+            } else {
+                // 向上滚动，显示头部
+                header.classList.remove("hidden");
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
         });
     </script>
 </body>
