@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 
 <head>
     
     <!--ico图标-->
-  <link rel="shortcut icon" type="image/x-icon" sizes="16x16" href="https://bingbook.cn/ico/favicon16x16.ico">
-  <link rel="shortcut icon" type="image/x-icon" sizes="32x32" href="https://bingbook.cn/ico/favicon32x32.ico">
-  <link rel="shortcut icon" type="image/x-icon" sizes="48x48" href="https://bingbook.cn/ico/favicon48x48.ico">
-  <link rel="shortcut icon" type="image/x-icon" sizes="64x64" href="https://bingbook.cn/ico/favicon64x64.ico">
-  <link rel="shortcut icon" type="image/x-icon" sizes="128x128" href="https://bingbook.cn/ico/favicon128x128.ico">
-  <link rel="shortcut icon" type="image/x-icon" sizes="256x256" href="https://bingbook.cn/ico/favicon256x256.ico">
-  <link rel="shortcut icon" type="image/x-icon" sizes="512x512" href="https://bingbook.cn/ico/favicon512x512.ico">
-   
+    <link rel="shortcut icon" type="image/x-icon" sizes="16x16" href="https://bingbook.cn/ico/favicon16x16.ico">
+    <link rel="shortcut icon" type="image/x-icon" sizes="32x32" href="https://bingbook.cn/ico/favicon32x32.ico">
+    <link rel="shortcut icon" type="image/x-icon" sizes="48x48" href="https://bingbook.cn/ico/favicon48x48.ico">
+    <link rel="shortcut icon" type="image/x-icon" sizes="64x64" href="https://bingbook.cn/ico/favicon64x64.ico">
+    <link rel="shortcut icon" type="image/x-icon" sizes="128x128" href="https://bingbook.cn/ico/favicon128x128.ico">
+    <link rel="shortcut icon" type="image/x-icon" sizes="256x256" href="https://bingbook.cn/ico/favicon256x256.ico">
+    <link rel="shortcut icon" type="image/x-icon" sizes="512x512" href="https://bingbook.cn/ico/favicon512x512.ico">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bingbook 冰书</title>
@@ -35,14 +35,14 @@
             align-items: center;
             padding: 20px;
             width: 100%;
-            background-color: transparent; /* 设置为透明 */
-            color: #ff0000; /* 设置文本颜色为红色 */
+            background-color: transparent;
+            color: #ff0000;
         }
 
         header h1 {
             margin: 0;
             font-size: 24px;
-            color: #ff0000; /* 设置文本颜色为红色 */
+            color: #ff0000;
         }
 
         .content {
@@ -64,6 +64,17 @@
             color: #4285f4;
             text-decoration: none;
         }
+
+        .hidden-content {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .more-link {
+            color: #4285f4;
+            cursor: pointer;
+            text-decoration: underline;
+        }
     </style>
 </head>
 
@@ -75,8 +86,11 @@
     <section class="content">
         <h2>欢迎来到 Bingbook</h2>
         <p>在 Bingbook，我们致力于通过强大的领导者推动业务的蓬勃发展。每项业务都将有一位出色的 CEO 负责，我们将为他们提供必要的支持。我们的目标是确保每项业务的独立性和持续增长，同时保持对资本分配的严谨管理。</p>
-        <p>我们 Bingbook 这个名字，因为它代表着代表知识的集合，知识是人类最重要的宝贵财富之一，同时它意味着高于基准的投资回报，这是我们努力追求的！我应该补充一点，我们并不打算让它成为一个拥有相关产品的大型消费品牌——重点是 Bingbook 应该独立并发展自己的品牌。</p>
-        <p>如果您有任何问题或需要联系我们，请发送电子邮件至 <a href="mailto:mail@bingbook.cn">mail@bingbook.cn</a>。</p>
+        <div class="hidden-content" id="hiddenContent">
+            <p>我们 Bingbook 这个名字，因为它代表着代表知识的集合，知识是人类最重要的宝贵财富之一，同时它意味着高于基准的投资回报，这是我们努力追求的！我应该补充一点，我们并不打算让它成为一个拥有相关产品的大型消费品牌——重点是 Bingbook 应该独立并发展自己的品牌。</p>
+            <p>如果您有任何问题或需要联系我们，请发送电子邮件至 <a href="mailto:mail@bingbook.cn">mail@bingbook.cn</a>。</p>
+        </div>
+        <span class="more-link" id="moreLink">更多</span>
     </section>
 
     <footer>
@@ -86,6 +100,18 @@
     <script>
         // 自动更新版权年份
         document.getElementById("year").textContent = new Date().getFullYear();
+
+        // 更多链接点击事件
+        document.getElementById("moreLink").addEventListener("click", function() {
+            const hiddenContent = document.getElementById("hiddenContent");
+            if (hiddenContent.style.display === "none") {
+                hiddenContent.style.display = "block";
+                this.textContent = "收起";
+            } else {
+                hiddenContent.style.display = "none";
+                this.textContent = "更多";
+            }
+        });
     </script>
 </body>
 
