@@ -36,11 +36,6 @@
             color: #ff0000;
             border-bottom: 2px solid #f1f1f1; /* 添加横向线 */
             z-index: 1000; /* 确保在其他元素之上 */
-            transition: transform 0.3s; /* 添加平滑过渡效果 */
-        }
-
-        header.hidden {
-            transform: translateY(-100%); /* 升起头部，隐藏 */
         }
 
         header h1 {
@@ -54,7 +49,7 @@
             padding: 80px 20px 20px; /* 上边距增加以避免被固定头部遮挡 */
             max-width: 600px;
             margin: auto; /* 居中内容 */
-            margin-top: 0px; /* 增加上边距以避免内容被头部遮挡 */
+            margin-top: 80px; /* 增加上边距以避免内容被头部遮挡 */
         }
 
         footer {
@@ -117,21 +112,6 @@
                 hiddenContent.style.display = "none";
                 this.textContent = "更多";
             }
-        });
-
-        // 监听滚动事件以隐藏或显示头部
-        let lastScrollTop = 0;
-        window.addEventListener("scroll", function() {
-            const header = document.getElementById("header");
-            const scrollTop = window.scrollY || document.documentElement.scrollTop;
-            if (scrollTop > lastScrollTop) {
-                // 向下滚动，隐藏头部
-                header.classList.add("hidden");
-            } else {
-                // 向上滚动，显示头部
-                header.classList.remove("hidden");
-            }
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
         });
     </script>
 </body>
