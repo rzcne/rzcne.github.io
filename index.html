@@ -24,7 +24,6 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            overflow: hidden; /* 防止页面滚动时出现滚动条 */
         }
 
         header {
@@ -55,6 +54,7 @@
             padding: 80px 20px 20px; /* 上边距增加以避免被固定头部遮挡 */
             max-width: 600px;
             margin: auto; /* 居中内容 */
+            margin-top: 0px; /* 增加上边距以避免内容被头部遮挡 */
         }
 
         footer {
@@ -110,7 +110,7 @@
         // 更多链接点击事件
         document.getElementById("moreLink").addEventListener("click", function() {
             const hiddenContent = document.getElementById("hiddenContent");
-            if (hiddenContent.style.display === "none") {
+            if (hiddenContent.style.display === "none" || hiddenContent.style.display === "") {
                 hiddenContent.style.display = "block";
                 this.textContent = "收起";
             } else {
