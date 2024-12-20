@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    
+    <!--ico图标-->
+  <link rel="shortcut icon" type="image/x-icon" sizes="16x16" href="https://bingbook.cn/ico/favicon16x16.ico">
+  <link rel="shortcut icon" type="image/x-icon" sizes="32x32" href="https://bingbook.cn/ico/favicon32x32.ico">
+  <link rel="shortcut icon" type="image/x-icon" sizes="48x48" href="https://bingbook.cn/ico/favicon48x48.ico">
+  <link rel="shortcut icon" type="image/x-icon" sizes="64x64" href="https://bingbook.cn/ico/favicon64x64.ico">
+  <link rel="shortcut icon" type="image/x-icon" sizes="128x128" href="https://bingbook.cn/ico/favicon128x128.ico">
+  <link rel="shortcut icon" type="image/x-icon" sizes="256x256" href="https://bingbook.cn/ico/favicon256x256.ico">
+  <link rel="shortcut icon" type="image/x-icon" sizes="512x512" href="https://bingbook.cn/ico/favicon512x512.ico">
+   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我们_冰书</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #202124;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 20px;
+            background-color: #ffffff;
+            color: #ff0000;
+            border-bottom: 2px solid #f1f1f1;
+            z-index: 1000;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #ff0000;
+        }
+
+        .content {
+            text-align: left;
+            padding: 80px 20px 20px;
+            max-width: 600px;
+            margin: auto;
+            font-size: 18px; /* 增大内容和隐藏内容的字体大小 */
+        }
+
+        .hidden-content {
+            display: none;
+            margin-top: 10px;
+            font-size: 18px; /* 增大内容和隐藏内容的字体大小 */
+        }
+
+        footer {
+            margin-top: auto;
+            background: transparent; /* 设置背景为透明 */
+            color: #202124;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+        }
+
+        a {
+            color: #4285f4;
+            text-decoration: none;
+        }
+
+        .more-link {
+            color: #4285f4;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        /* 媒体查询，调整字体大小以适应较小的设备 */
+        @media (max-width: 600px) {
+            .content {
+                font-size: 16px; /* 保持较小设备上的字体大小 */
+            }
+
+            .hidden-content {
+                font-size: 16px; /* 保持较小设备上的字体大小 */
+            }
+        }
+
+        .footer-links {
+            font-size: 18px; /* 修改为与正文相同的字体大小 */
+            margin-top: 20px;
+            background: transparent; /* 设置背景为透明 */
+        }
+
+        .footer-links a {
+            display: block;
+            margin: 5px 0; /* 每个链接之间的间距 */
+            color: #000000; /* 将隐私、条款和关于BingBook的链接颜色设置为黑色 */
+        }
+
+        .footer-links a:first-child {
+            color: #ff0000; /* 将Bingbook的链接颜色设置为红色 */
+            font-weight: bold; /* 加粗Bingbook链接 */
+        }
+
+        hr {
+            margin: 20px 0; /* 设置横向线的上下间距 */
+            border: none;
+            border-top: 1px solid #ccc; /* 设置线的颜色 */
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>关于Bingbook</h1>
+    </header>
+
+    <main class="content">
+        <h3>我们的使命是整合全人类知识，使所有人都能访问并从中受益。</h3>
+    
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="https://bingbook.cn">Bingbook</a>
+            <br>
+            <a href="https://bingbook.cn/ys">隐私</a>
+            <br>
+            <a href="https://bingbook.cn/tk">条款</a>
+            <br>
+            <a href="https://bingbook.cn/about">关于 Bingbook</a>
+            <br>
+            <a href="https://bingbook.cn/lx">联系 Bingbook</a>
+            <br>
+        </div>
+        <hr> <!-- 添加横向线 -->
+        <p>© <span id="year"></span> 冰书 | 版权所有</p>
+    </footer>
+
+    <script>
+        // 自动更新版权年份
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // 更多链接点击事件
+        document.getElementById("moreLink").addEventListener("click", function() {
+            const hiddenContent = document.getElementById("hiddenContent");
+            if (hiddenContent.style.display === "none" || hiddenContent.style.display === "") {
+                hiddenContent.style.display = "block";
+                this.textContent = "收起";
+            } else {
+                hiddenContent.style.display = "none";
+                this.textContent = "更多";
+            }
+        });
+    </script>
+</body>
+
+</html>
