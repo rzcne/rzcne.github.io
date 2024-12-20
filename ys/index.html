@@ -1,155 +1,211 @@
-<!DOCTYPE html>
-<html lang="zh">
+<!DOCTYPE html>
+<html lang="zh">
 
 <head>
-    <!--ico图标-->
-    <link rel="shortcut icon" type="image/x-icon" sizes="16x16" href="https://bingbook.cn/ico/favicon16x16.ico">
-    <link rel="shortcut icon" type="image/x-icon" sizes="32x32" href="https://bingbook.cn/ico/favicon32x32.ico">
-    <link rel="shortcut icon" type="image/x-icon" sizes="48x48" href="https://bingbook.cn/ico/favicon48x48.ico">
-    <link rel="shortcut icon" type="image/x-icon" sizes="64x64" href="https://bingbook.cn/ico/favicon64x64.ico">
-    <link rel="shortcut icon" type="image/x-icon" sizes="128x128" href="https://bingbook.cn/ico/favicon128x128.ico">
-    <link rel="shortcut icon" type="image/x-icon" sizes="256x256" href="https://bingbook.cn/ico/favicon256x256.ico">
-    <link rel="shortcut icon" type="image/x-icon" sizes="512x512" href="https://bingbook.cn/ico/favicon512x512.ico">
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>隐私政策_冰书</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #ffffff;
-            color: #202124;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+    
+    <!--ico图标-->
+  <link rel="shortcut icon" type="image/x-icon" sizes="16x16" href="https://bingbook.cn/ico/favicon16x16.ico">
+  <link rel="shortcut icon" type="image/x-icon" sizes="32x32" href="https://bingbook.cn/ico/favicon32x32.ico">
+  <link rel="shortcut icon" type="image/x-icon" sizes="48x48" href="https://bingbook.cn/ico/favicon48x48.ico">
+  <link rel="shortcut icon" type="image/x-icon" sizes="64x64" href="https://bingbook.cn/ico/favicon64x64.ico">
+  <link rel="shortcut icon" type="image/x-icon" sizes="128x128" href="https://bingbook.cn/ico/favicon128x128.ico">
+  <link rel="shortcut icon" type="image/x-icon" sizes="256x256" href="https://bingbook.cn/ico/favicon256x256.ico">
+  <link rel="shortcut icon" type="image/x-icon" sizes="512x512" href="https://bingbook.cn/ico/favicon512x512.ico">
+   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>隐私政策_冰书</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #202124;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-        header {
-            padding: 20px;
-            background-color: #ffffff;
-            color: #ff0000;
-            border-bottom: 2px solid #f1f1f1;
-            z-index: 1000;
-        }
+        header {
+            padding: 20px;
+            background-color: #ffffff;
+            color: #ff0000;
+            border-bottom: 2px solid #f1f1f1;
+            z-index: 1000;
+        }
 
-        header h1 {
-            margin: 0;
-            font-size: 24px;
-            color: #ff0000;
-        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #ff0000;
+        }
 
-        .content {
-            text-align: left; /* 修改为左对齐 */
-            padding: 80px 20px 20px;
-            max-width: 600px;
-            margin: auto;
-            font-size: 18px; /* 增大内容和隐藏内容的字体大小 */
-        }
+        .content {
+            text-align: left;
+            padding: 80px 20px 20px;
+            max-width: 600px;
+            margin: auto;
+            font-size: 18px; /* 增大内容和隐藏内容的字体大小 */
+        }
 
-        .hidden-content {
-            display: none;
-            margin-top: 10px;
-            font-size: 18px; /* 增大内容和隐藏内容的字体大小 */
-        }
+        .hidden-content {
+            display: none;
+            margin-top: 10px;
+            font-size: 18px; /* 增大内容和隐藏内容的字体大小 */
+        }
 
-        footer {
-            margin-top: auto;
-            background: transparent; /* 设置背景为透明 */
-            color: #202124;
-            text-align: center;
-            padding: 10px;
-            width: 100%;
-        }
+        footer {
+            margin-top: auto;
+            background: transparent; /* 设置背景为透明 */
+            color: #202124;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+        }
 
-        a {
-            color: #4285f4;
-            text-decoration: none;
-        }
+        a {
+            color: #4285f4;
+            text-decoration: none;
+        }
 
-        .more-link {
-            color: #4285f4;
-            cursor: pointer;
-            text-decoration: underline;
-        }
+        .more-link {
+            color: #4285f4;
+            cursor: pointer;
+            text-decoration: underline;
+        }
 
-        /* 媒体查询，调整字体大小以适应较小的设备 */
-        @media (max-width: 600px) {
-            .content {
-                font-size: 16px; /* 保持较小设备上的字体大小 */
-            }
+        /* 媒体查询，调整字体大小以适应较小的设备 */
+        @media (max-width: 600px) {
+            .content {
+                font-size: 16px; /* 保持较小设备上的字体大小 */
+            }
 
-            .hidden-content {
-                font-size: 16px; /* 保持较小设备上的字体大小 */
-            }
-        }
+            .hidden-content {
+                font-size: 16px; /* 保持较小设备上的字体大小 */
+            }
+        }
 
-        .footer-links {
-            font-size: 18px; /* 修改为与正文相同的字体大小 */
-            margin-top: 20px;
-            background: transparent; /* 设置背景为透明 */
-        }
+        .footer-links {
+            font-size: 18px; /* 修改为与正文相同的字体大小 */
+            margin-top: 20px;
+            background: transparent; /* 设置背景为透明 */
+        }
 
-        .footer-links a {
-            display: block;
-            margin: 5px 0; /* 每个链接之间的间距 */
-            color: #000000; /* 将隐私、条款和关于BingBook的链接颜色设置为黑色 */
-        }
+        .footer-links a {
+            display: block;
+            margin: 5px 0; /* 每个链接之间的间距 */
+            color: #000000; /* 将隐私、条款和关于BingBook的链接颜色设置为黑色 */
+        }
 
-        .footer-links a:first-child {
-            color: #ff0000; /* 将Bingbook的链接颜色设置为红色 */
-            font-weight: bold; /* 加粗Bingbook链接 */
-        }
+        .footer-links a:first-child {
+            color: #ff0000; /* 将Bingbook的链接颜色设置为红色 */
+            font-weight: bold; /* 加粗Bingbook链接 */
+        }
 
-        hr {
-            margin: 20px 0; /* 设置横向线的上下间距 */
-            border: none;
-            border-top: 1px solid #ccc; /* 设置线的颜色 */
-        }
-    </style>
+        hr {
+            margin: 20px 0; /* 设置横向线的上下间距 */
+            border: none;
+            border-top: 1px solid #ccc; /* 设置线的颜色 */
+        }
+    </style>
 </head>
 
 <body>
-    <header>
-        <h1>Bingbook 冰书</h1>
-    </header>
+    <header>
+        <h1>Bingbook 冰书</h1>
+    </header>
 
-    <main class="content">
-        <h2>隐私政策</h2>
-        <p>我们非常重视您的隐私，并致力于保护您的个人信息。本文旨在向您说明我们如何收集、使用、存储和保护您的信息。</p>
-        
-        <div class="hidden-content" id="hiddenContent">
-            <!-- 隐藏内容保持不变 -->
-        </div>
-        
-        <span class="more-link" id="moreLink">更多</span>
-    </main>
+    <main class="content">
+        <h2>隐私政策</h2>
+        <p>我们非常重视您的隐私，并致力于保护您的个人信息。本文旨在向您说明我们如何收集、使用、存储和保护您的信息。</p>
+        
+        <div class="hidden-content" id="hiddenContent">
+            <h3>1. 信息的收集</h3>
 
-    <footer>
-        <div class="footer-links">
-            <!-- 页脚链接保持不变 -->
-        </div>
-        <hr> <!-- 添加横向线 -->
-       <p>© <span id="year"></span> 冰书 | 版权所有</p>
-    </footer>
+<p>我们可能会收集您在使用我们的服务时提供的个人信息，包括但不限于：</p>
+<p>• 姓名</p>
+<p>• 电子邮件地址</p>
+<p>• 联系电话</p>
+<p>• 地理位置数据</p>
 
-    <script>
-        // 自动更新版权年份
-        document.getElementById("year").textContent = new Date().getFullYear();
+<p>此外，我们还可能自动收集一些信息，例如：</p>
+<p>• 您的设备信息（如操作系统、浏览器类型）</p>
+<p>• 您的IP地址</p>
+<p>• 您与我们服务的互动情况（如访问时间、点击记录）</p>
 
-        // 更多链接点击事件
-        document.getElementById("moreLink").addEventListener("click", function() {
-            const hiddenContent = document.getElementById("hiddenContent");
-            if (hiddenContent.style.display === "none" || hiddenContent.style.display === "") {
-                hiddenContent.style.display = "block";
-                this.textContent = "收起";
-            } else {
-                hiddenContent.style.display = "none";
-                this.textContent = "更多";
-            }
-        });
-    </script>
+<h3>2. 信息的使用</h3>
+
+<p>我们将收集的信息用于以下目的：</p>
+<p>• 提供和维护我们的服务</p>
+<p>• 改善用户体验</p>
+<p>• 个性化内容和广告</p>
+<p>• 分析用户行为，以提升产品质量</p>
+<p>• 与您沟通，包括发送服务更新和促销信息</p>
+
+<h3>3. 信息的分享</h3>
+
+<p>我们不会将您的个人信息出售给第三方。我们可能会在以下情况下分享您的信息：</p>
+ <p>与我们的合作伙伴和服务提供商，以帮助我们提供服务</p>
+<p>• 遵循法律法规或响应法律要求</p>
+<p>• 保护我们或他人的权利、财产或安全</p>
+
+<h3>4. 信息的安全</h3>
+
+</p>我们采取合理的技术和组织措施，以保护您的个人信息不被未经授权的访问、使用或披露。然而，任何信息的传输都无法保证绝对安全，您应自行承担风险。</p>
+
+<h3>5. 您的权利</h3>
+
+<p>您有权访问、更正或删除您的个人信息。您可以随时联系我们，行使这些权利。</p>
+
+<h3>6. 隐私政策的变更</h3>
+
+</p>我们可能会不时更新本隐私政策。我们会通过适当的方式通知您任何重要的变更。</p>
+
+<h3>7. 联系我们</h3>
+
+<p>如果您对我们的隐私政策有任何疑问或意见，请随时通过</p>
+<p>以下方式与我们联系：</p>
+<p>• 电子邮件：mail@bingbook.cn</p>
+<p>• 电话：无</p>
+            </div>
+        
+        <span class="more-link" id="moreLink">更多</span>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="https://bingbook.cn">Bingbook</a>
+            <br>
+            <a href="https://bingbook.cn/ys">隐私</a>
+            <br>
+            <a href="https://bingbook.cn/tk">条款</a>
+            <br>
+            <a href="https://bingbook.cn/about">关于 Bingbook</a>
+            <br>
+            <a href="https://bingbook.cn/lx">联系 Bingbook</a>
+            <br>
+        </div>
+        <hr> <!-- 添加横向线 -->
+        <p>© <span id="year"></span> 冰书 | 版权所有</p>
+    </footer>
+
+    <script>
+        // 自动更新版权年份
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // 更多链接点击事件
+        document.getElementById("moreLink").addEventListener("click", function() {
+            const hiddenContent = document.getElementById("hiddenContent");
+            if (hiddenContent.style.display === "none" || hiddenContent.style.display === "") {
+                hiddenContent.style.display = "block";
+                this.textContent = "收起";
+            } else {
+                hiddenContent.style.display = "none";
+                this.textContent = "更多";
+            }
+        });
+    </script>
 </body>
 
 </html>
