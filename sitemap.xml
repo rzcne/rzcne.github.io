@@ -1,59 +1,82 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <!-- 根网址 -->
-    <url>
-        <loc>https://news.bingbook.cn</loc>
-        <lastmod>2025-02-16</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.0</priority>
-    </url>
-    <!-- 具体文章页面 -->
-    <url>
-        <loc>https://news.bingbook.cn/web/43831.html</loc>
-        <lastmod>2025-02-16</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://news.bingbook.cn/web/83128.html</loc>
-        <lastmod>2025-02-16</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://news.bingbook.cn/web/83124.html</loc>
-        <lastmod>2025-02-16</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://news.bingbook.cn/web/83216.html</loc>
-        <lastmod>2025-02-16</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://news.bingbook.cn/web/1804.html</loc>
-        <lastmod>2025-02-16</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://news.bingbook.cn/web/1803.html</loc>
-        <lastmod>2025-02-16</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://news.bingbook.cn/web/1805.html</loc>
-        <lastmod>2025-02-16</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://news.bingbook.cn/web/1806.html</loc>
-        <lastmod>2025-02-16</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<url>
+<loc>https://bingbook.cn/</loc>
+<lastmod>2025-02-16T17:38:20+08:00</lastmod>
+<priority>1.00</priority>
+</url>
+<url>
+<loc>https://bingbook.cn/ys/</loc>
+<lastmod>2025-02-16T17:38:20+08:00</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://bingbook.cn/tk/</loc>
+<lastmod>2025-02-16T17:38:20+08:00</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://bingbook.cn/about/</loc>
+<lastmod>2025-02-16T17:38:20+08:00</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://bingbook.cn/lx/</loc>
+<lastmod>2025-02-16T17:38:20+08:00</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://bingbook.cn/cc/</loc>
+<lastmod>2025-02-16T17:38:20+08:00</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://gongyi.bingbook.cn/</loc>
+<lastmod>2025-02-16T17:38:20+08:00</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://news.bingbook.cn/</loc>
+<lastmod>2025-02-16T17:38:20+08:00</lastmod>
+<priority>1.00</priority>
+</url>
+<url>
+<loc>https://news.bingbook.cn/web/43831.html</loc>
+<lastmod>2025-02-16T17:38:20+08:00</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://news.bingbook.cn/web/83128.html</loc>
+<lastmod>2025-02-16T17:38:20+08:00</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://news.bingbook.cn/web/83124.html</loc>
+<lastmod>2025-02-16T17:38:20+08:00</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://news.bingbook.cn/web/83216.html</loc>
+<lastmod>2025-02-16T17:38:20+08:00</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://news.bingbook.cn/web/1804.html</loc>
+<lastmod>2025-02-16T17:38:20+08:00</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://news.bingbook.cn/web/1803.html</loc>
+<lastmod>2025-02-16T17:38:20+08:00</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://news.bingbook.cn/web/1805.html</loc>
+<lastmod>2025-02-16T17:38:20+08:00</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://news.bingbook.cn/web/1806.html</loc>
+<lastmod>2025-02-16T17:38:20+08:00</lastmod>
+<priority>0.80</priority>
+</url>
 </urlset>
