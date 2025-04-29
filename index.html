@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh">
-
+<html lang="zh-CN">
 <head>
-    <!-- ico图标 -->
+
+<!-- ico图标 -->
     <link rel="shortcut icon" type="image/x-icon" sizes="16x16" href="https://bingbook.cn/ico/favicon16x16.ico">
     <link rel="shortcut icon" type="image/x-icon" sizes="32x32" href="https://bingbook.cn/ico/favicon32x32.ico">
     <link rel="shortcut icon" type="image/x-icon" sizes="48x48" href="https://bingbook.cn/ico/favicon48x48.ico">
@@ -11,164 +11,402 @@
     <link rel="shortcut icon" type="image/x-icon" sizes="256x256" href="https://bingbook.cn/ico/favicon256x256.ico">
     <link rel="shortcut icon" type="image/x-icon" sizes="512x512" href="https://bingbook.cn/ico/favicon512x512.ico">
 
-    <link rel="preconnect" href="https://bingbook.cn">
-    <link rel="preconnect" href="https://bingbook.cn" crossorigin>
-    <link href="https://bingbook.cn/fonts/Lexendswap" rel="stylesheet">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>冰书</title>
+    <title>冰书科技 - 智能未来解决方案</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body {
-            font-family: "Lexend"; /* 使用 Lexend 字体，无后备字体 */
-            margin: 0;
-            padding: 0;
-            background-color: #ffffff;
-            color: #202124;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #6C5CE7;
+            --text-color: #2D3436;
+            --bg-light: #F8F9FA;
         }
 
-        header {
-            padding: 20px;
-            background-color: #ffffff;
-            color: #ff0000;
-            border-bottom: 2px solid #f1f1f1;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            line-height: 1.7;
+            color: var(--text-color);
+        }
+
+        /* 导航栏 */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
             z-index: 1000;
         }
 
-        header h1 {
-            margin: 0;
-            font-size: 24px;
-            color: #ff0000;
-            font-family: 'Lexend', sans-serif; /* 确保使用 Lexend 字体 */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
         }
 
-        .content {
-            text-align: center;
-            padding: 80px 20px 20px;
-            max-width: 600px;
-            margin: auto;
-            font-size: 18px; /* 增大内容和隐藏内容的字体大小 */
-            font-family: 'Lexend', sans-serif; /* 确保使用 Lexend 字体 */
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
         }
 
-        .hidden-content {
-            display: none;
-            margin-top: 10px;
-            font-size: 18px; /* 增大内容和隐藏内容的字体大小 */
-            font-family: 'Lexend', sans-serif; /* 确保使用 Lexend 字体 */
-        }
-
-        footer {
-            margin-top: auto;
-            background: transparent; /* 设置背景为透明 */
-            color: #202124;
-            text-align: center;
-            padding: 10px;
-            width: 100%;
-            font-family: 'Lexend', sans-serif; /* 确保使用 Lexend 字体 */
-        }
-
-        a {
-            color: #4285f4;
+        .nav-links a {
+            color: var(--text-color);
             text-decoration: none;
-            font-family: 'Lexend', sans-serif; /* 确保使用 Lexend 字体 */
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
         }
 
-        .more-link {
-            color: #4285f4;
-            cursor: pointer;
-            text-decoration: underline;
-            font-family: 'Lexend', sans-serif; /* 确保使用 Lexend 字体 */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            transition: width 0.3s;
         }
 
-        /* 媒体查询，调整字体大小以适应较小的设备 */
-        @media (max-width: 600px) {
-            .content {
-                font-size: 16px; /* 保持较小设备上的字体大小 */
-            }
-
-            .hidden-content {
-                font-size: 16px; /* 保持较小设备上的字体大小 */
-            }
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
-        .footer-links {
-            font-size: 18px; /* 修改为与正文相同的字体大小 */
-            margin-top: 20px;
-            background: transparent; /* 设置背景为透明 */
-            font-family: 'Lexend', sans-serif; /* 确保使用 Lexend 字体 */
+        /* 横幅 */
+        .banner {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
         }
 
-        .footer-links a {
-            display: block;
-            margin: 5px 0; /* 每个链接之间的间距 */
-            color: #000000; /* 将隐私、条款和关于BingBook的链接颜色设置为黑色 */
+        .banner h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            animation: slideUp 1s ease;
         }
 
-        .footer-links a:first-child {
-            color: #ff0000; /* 将Bingbook的链接颜色设置为红色 */
-            font-weight: bold; /* 加粗Bingbook链接 */
+        .banner p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: slideUp 1s ease 0.2s backwards;
         }
 
-        hr {
-            margin: 20px 0; /* 设置横向线的上下间距 */
+        .cta-button {
+            background: white;
+            color: var(--primary-color);
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            animation: slideUp 1s ease 0.4s backwards;
             border: none;
-            border-top: 1px solid #ccc; /* 设置线的颜色 */
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 内容区块 */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            scroll-margin-top: 80px;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--secondary-color);
+        }
+
+        /* 服务卡片 */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        /* 联系表单优化 */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 8px rgba(74, 144, 226, 0.2);
+        }
+
+        .tip {
+            font-size: 0.9em;
+            color: #666;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        /* 页脚 */
+        footer {
+            background: var(--text-color);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        /* 动画 */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .banner h2 {
+                font-size: 2.5rem;
+            }
+
+            .services {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 4rem 1rem;
+            }
+
+            .contact-form {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
-
 <body>
-    <header>
-        <h1>Bingbook</h1>
+    <header class="header">
+        <nav class="nav">
+            <h1 style="color: var(--primary-color);">冰书科技</h1>
+            <div class="nav-links">
+                <a href="#home">首页</a>
+                <a href="#about">关于我们</a>
+                <a href="#services">产品服务</a>
+                <a href="#contact">联系我们</a>
+            </div>
+        </nav>
     </header>
 
-    <main class="content">
-        <h2>欢迎来到冰书</h2>
-        <p>在冰书，我们致力于通过强大的领导者推动业务的蓬勃发展。每项业务都将有一位出色的 CEO 负责，我们将为他们提供必要的支持。我们的目标是确保每项业务的独立性和持续增长，同时保持对资本分配的严谨管理。</p>
-
-        <div class="hidden-content" id="hiddenContent">
-            <p>冰书这个名字代表着知识的集合，知识是人类最重要的宝贵财富之一，同时它意味着高于基准的投资回报，这是我们努力追求的！我们并不打算让它成为一个拥有相关产品的大型消费品牌，重点是冰书应该独立并发展自己的品牌。</p>
+    <section id="home" class="banner">
+        <div>
+            <h2>创新驱动智能未来</h2>
+            <p>为企业打造下一代数字化转型解决方案</p>
+            <a href="#about" class="cta-button">立即探索</a>
         </div>
+    </section>
 
-        <span class="more-link" id="moreLink">更多</span>
-    </main>
+    <section id="about" class="section">
+        <h2>关于我们</h2>
+        <div class="about-content">
+            <div class="service-card">
+                <h3>以技术重塑商业未来</h3>
+                <p>自2020年成立以来，冰书科技始终致力于将前沿科技转化为企业生产力，通过人工智能、大数据和云计算技术，已为200+企业提供数字化转型服务...</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section">
+        <h2>核心服务</h2>
+        <div class="services">
+            <div class="service-card">
+                <i class="fas fa-robot"></i>
+                <h3>人工智能解决方案</h3>
+                <p>深度学习/自然语言处理/计算机视觉</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-cloud"></i>
+                <h3>智能云服务</h3>
+                <p>混合云部署/数据安全/Serverless架构</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>数据分析</h3>
+                <p>商业智能/用户画像/预测分析</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-hashtag"></i>
+                <h3>新媒体营销</h3>
+                <p>社交媒体运营/KOL合作/内容营销</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>电商运营</h3>
+                <p>店铺代运营/直播电商/精准营销</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-server"></i>
+                <h3>数字运维</h3>
+                <p>系统监控/自动化运维/安全加固</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h2>联系我们</h2>
+        <form class="contact-form" id="emailForm">
+            <div class="form-group">
+                <input type="text" id="name" placeholder="您的姓名" required>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" placeholder="工作邮箱" required>
+            </div>
+            <div class="form-group">
+                <textarea id="message" rows="6" placeholder="请详细描述您的需求..." required></textarea>
+            </div>
+            <button type="submit" class="cta-button">发送需求</button>
+        </form>
+        <p class="tip">点击发送后，系统将自动跳转到您的邮件应用，请确认发送即可</p>
+    </section>
 
     <footer>
-        <div class="footer-links">
-            <a href="https://bingbook.cn">Bingbook</a>
-            <br>
-            <a href="https://bingbook.cn/ys">隐私政策</a>
-            <br>
-            <a href="https://bingbook.cn/tk">服务条款</a>
-            <br>
-            <a href="https://bingbook.cn/about">关于冰书</a>
-            <br>
-            <a href="https://bingbook.cn/lx">联系冰书</a>
-            <br>
-        </div>
-        <hr> <!-- 添加横向线 -->
-        <p>© <span id="year"></span> 冰书 | 版权所有</p>
+        <p>联系电话: 1832745XXX</p>
+        <p>联系邮箱: mail@bingbook.cn</p> 
+        <p>通讯地址: 香港科技大厦8层</p>
+        </br>
+        <p>创新之路，与您同行</p>
+        <p>© 2025 冰书科技 版权所有</p>
     </footer>
 
     <script>
-        // 自动更新版权年份
-        document.getElementById("year").textContent = new Date().getFullYear();
+        // 表单提交处理
+        document.getElementById('emailForm').addEventListener('submit', function(e) {
+            e.preventDefault();
 
-        // 更多链接点击事件
-        document.getElementById("moreLink").addEventListener("click", function() {
-            const hiddenContent = document.getElementById("hiddenContent");
-            if (hiddenContent.style.display === "none" || hiddenContent.style.display === "") {
-                hiddenContent.style.display = "block";
-                this.textContent = "收起";
-            } else {
-                hiddenContent.style.display = "none";
-                this.textContent = "更多";
+            // 获取表单数据
+            const name = encodeURIComponent(document.getElementById('name').value);
+            const email = encodeURIComponent(document.getElementById('email').value);
+            const message = encodeURIComponent(
+                document.getElementById('message').value
+                    .replace(/\n/g, '%0D%0A')
+            );
+
+            // 验证邮箱格式
+            if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(decodeURIComponent(email))) {
+                alert('请输入有效的邮箱地址');
+                return;
             }
+
+            // 构建邮件内容
+            const subject = `需求提交 - ${decodeURIComponent(name)}`;
+            const body = `联系人：${decodeURIComponent(name)}%0D%0A%0D%0A邮箱：${decodeURIComponent(email)}%0D%0A%0D%0A需求详情：%0D%0A${message}`;
+
+            // 跳转邮件客户端
+            window.location.href = `mailto:mail@bingbook.cn?subject=${subject}&body=${body}`;
+            
+            // 清空表单
+            this.reset();
         });
-         </script>
-         </body>
-         </html>
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // 导航栏激活状态
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const scrollPosition = window.scrollY + 100;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    document.querySelectorAll('.nav-links a').forEach(link => {
+                        link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
