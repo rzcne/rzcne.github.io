@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-
-<!-- ico图标 -->
+    <!-- ico图标 -->
     <link rel="shortcut icon" type="image/x-icon" sizes="16x16" href="https://bingbook.cn/ico/favicon16x16.ico">
     <link rel="shortcut icon" type="image/x-icon" sizes="32x32" href="https://bingbook.cn/ico/favicon32x32.ico">
     <link rel="shortcut icon" type="image/x-icon" sizes="48x48" href="https://bingbook.cn/ico/favicon48x48.ico">
@@ -14,8 +13,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>冰书科技 - 智能未来解决方案</title>
-    <link href="https://bingbook.cn/fonts/swap.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://bingbook.cn/css/font-awesome.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #4A90E2;
@@ -178,6 +177,29 @@
             margin-bottom: 1.5rem;
         }
 
+        /* 案例卡片 */
+        .case-card {
+            background: var(--bg-light);
+            position: relative;
+            overflow: hidden;
+        }
+        .case-card::before {
+            content: "案例";
+            position: absolute;
+            right: -30px;
+            top: -30px;
+            background: var(--secondary-color);
+            color: white;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            padding: 10px;
+            transform: rotate(45deg);
+            font-size: 0.9rem;
+        }
+
         /* 联系表单优化 */
         .contact-form {
             max-width: 600px;
@@ -266,6 +288,7 @@
                 <a href="#home">首页</a>
                 <a href="#about">关于我们</a>
                 <a href="#services">产品服务</a>
+                <a href="#cases">客户案例</a>
                 <a href="#contact">联系我们</a>
             </div>
         </nav>
@@ -325,6 +348,83 @@
         </div>
     </section>
 
+    <!-- 客户案例部分 -->
+    <section id="cases" class="section">
+        <h2>成功案例</h2>
+        <div class="services">
+            <div class="service-card case-card">
+                <h3>某国际电商平台</h3>
+                <p><small>跨境电商 | 日均百万订单</small></p>
+                <p>挑战：大促期间系统稳定性不足<br>
+                方案：混合云架构优化+智能负载均衡<br>
+                成果：零故障支撑双十一180亿交易额</p>
+            </div>
+            <div class="service-card case-card">
+                <h3>头部短视频平台</h3>
+                <p><small>社交娱乐 | 2亿日活用户</small></p>
+                <p>挑战：内容审核效率低下<br>
+                方案：AI智能审核系统部署<br>
+                成果：审核效率提升300%，成本降低65%</p>
+            </div>
+            <div class="service-card case-card">
+                <h3>新能源车企</h3>
+                <p><small>智能制造 | 年产50万台</small></p>
+                <p>挑战：生产数据孤岛问题严重<br>
+                方案：工业大数据中台建设<br>
+                成果：设备利用率提升25%</p>
+            </div>
+            <div class="service-card case-card">
+                <h3>连锁零售集团</h3>
+                <p><small>新零售 | 3000+门店</small></p>
+                <p>挑战：库存周转率低下<br>
+                方案：智能补货预测系统<br>
+                成果：库存成本降低1.2亿元/年</p>
+            </div>
+            <div class="service-card case-card">
+                <h3>商业银行</h3>
+                <p><small>金融服务 | 万亿级资产</small></p>
+                <p>挑战：风控模型滞后<br>
+                方案：实时反欺诈系统升级<br>
+                成果：欺诈损失下降78%</p>
+            </div>
+            <div class="service-card case-card">
+                <h3>三甲医院</h3>
+                <p><small>智慧医疗 | 年接诊200万人次</small></p>
+                <p>挑战：医疗影像诊断效率低<br>
+                方案：AI辅助诊断系统<br>
+                成果：阅片效率提升150%</p>
+            </div>
+            <div class="service-card case-card">
+                <h3>物流龙头企业</h3>
+                <p><small>智慧物流 | 日均百万包裹</small></p>
+                <p>挑战：路径规划不优<br>
+                方案：智能调度算法优化<br>
+                成果：运输成本降低18%</p>
+            </div>
+            <div class="service-card case-card">
+                <h3>教育科技公司</h3>
+                <p><small>在线教育 | 百万学员</small></p>
+                <p>挑战：课程转化率低<br>
+                方案：用户画像精准营销<br>
+                成果：转化率提升32%</p>
+            </div>
+            <div class="service-card case-card">
+                <h3>政务服务平台</h3>
+                <p><small>数字政务 | 千万用户</small></p>
+                <p>挑战：系统响应速度慢<br>
+                方案：微服务架构改造<br>
+                成果：并发处理能力提升10倍</p>
+            </div>
+            <div class="service-card case-card">
+                <h3>智能硬件厂商</h3>
+                <p><small>IoT | 百万级设备</small></p>
+                <p>挑战：设备运维成本高<br>
+                方案：预测性维护系统<br>
+                成果：运维成本降低40%</p>
+            </div>
+        </div>
+    </section>
+
     <section id="contact" class="section">
         <h2>联系我们</h2>
         <form class="contact-form" id="emailForm">
@@ -346,17 +446,15 @@
         <p>联系电话: 1832745XXX</p>
         <p>联系邮箱: mail@bingbook.cn</p> 
         <p>通讯地址: 香港科技大厦8层</p>
-        </br>
+        <br>
         <p>创新之路，与您同行</p>
         <p>© 2025 冰书科技 版权所有</p>
     </footer>
 
     <script>
-        // 表单提交处理
         document.getElementById('emailForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // 获取表单数据
             const name = encodeURIComponent(document.getElementById('name').value);
             const email = encodeURIComponent(document.getElementById('email').value);
             const message = encodeURIComponent(
@@ -364,24 +462,18 @@
                     .replace(/\n/g, '%0D%0A')
             );
 
-            // 验证邮箱格式
             if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(decodeURIComponent(email))) {
                 alert('请输入有效的邮箱地址');
                 return;
             }
 
-            // 构建邮件内容
             const subject = `需求提交 - ${decodeURIComponent(name)}`;
             const body = `联系人：${decodeURIComponent(name)}%0D%0A%0D%0A邮箱：${decodeURIComponent(email)}%0D%0A%0D%0A需求详情：%0D%0A${message}`;
 
-            // 跳转邮件客户端
             window.location.href = `mailto:mail@bingbook.cn?subject=${subject}&body=${body}`;
-            
-            // 清空表单
             this.reset();
         });
 
-        // 平滑滚动
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -391,7 +483,6 @@
             });
         });
 
-        // 导航栏激活状态
         window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('section');
             const scrollPosition = window.scrollY + 100;
