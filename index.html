@@ -501,6 +501,17 @@
                 }
             });
         });
+        // 移动菜单交互
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // 点击菜单项后自动关闭
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('active');
+            });
+        });
     </script>
 </body>
 </html>
