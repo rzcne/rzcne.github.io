@@ -278,84 +278,15 @@
                 padding: 1.5rem;
             }
         }
-    /* 修改后的渐变动画 */
-        .gradient-text {
-            background: linear-gradient(
-                135deg,
-                #00f2fe 25%,
-                #4facfe 50%,
-                #6a5af9 75%,
-                #00f2fe 100%
-            );
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-fill-color: transparent;
-            background-size: 400% 400%;
-            animation: gradientFlow 6s ease infinite;
-            font-weight: 700;
-            font-size: 1.8rem;
-            position: relative;
-            margin: 0;
-        }
-
-        @keyframes gradientFlow {
-            0% {
-                background-position: 100% 50%;
-            }
-            50% {
-                background-position: 0% 50%;
-            }
-            100% {
-                background-position: 100% 50%;
-            }
-        }
-
-        /* 添加光晕特效 */
-        .gradient-text::after {
-            content: "冰书";
-            position: absolute;
-            left: 0;
-            top: 0;
-            background: linear-gradient(
-                135deg,
-                rgba(0, 242, 254, 0.4),
-                rgba(106, 90, 249, 0.4)
-            );
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-fill-color: transparent;
-            filter: blur(8px);
-            z-index: -1;
-            animation: glowPulse 2s ease infinite;
-        }
-
-        @keyframes glowPulse {
-            0%, 100% {
-                opacity: 0.8;
-            }
-            50% {
-                opacity: 0.4;
-            }
-        }
-
-        /* 导航品牌容器 */
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            position: relative;
-        }
     </style>
 </head>
 <body>
     <header class="header">
         <nav class="nav">
-            <div class="nav-brand">
-                <img src="https://bingbook.cn/img/logo.png" alt="冰书logo" style="height: 40px;">
-                <h1 class="gradient-text">冰书</h1>
-            </div>
+            <div style="display: flex; align-items: center;">
+    <img src="https://bingbook.cn/img/logo.png" alt="冰书logo" style="height: 40px; margin-right: 10px;">
+    <h1 style="color: var(--primary-color);">冰书</h1>
+    </div>
             <div class="nav-links">
                 <a href="#home">首页</a>
                 <a href="#about">关于我们</a>
@@ -568,17 +499,6 @@
                         link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
                     });
                 }
-            });
-        });
-        // 移动菜单交互
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
-        });
-
-        // 点击菜单项后自动关闭
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.querySelector('.nav-links').classList.remove('active');
             });
         });
     </script>
