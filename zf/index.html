@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>跳转检测 - 请稍候</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            overflow: hidden;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            background: rgba(25, 25, 35, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            z-index: -1;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .logo-container {
+            margin: 25px 0;
+        }
+        
+        .logo {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            color: #4CAF50;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .status {
+            font-size: 1.4rem;
+            margin: 30px 0;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .loading {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #4CAF50;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .destination {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            text-align: left;
+        }
+        
+        .destination h3 {
+            margin-bottom: 10px;
+            color: #FFD700;
+        }
+        
+        .url {
+            font-family: monospace;
+            word-break: break-all;
+            color: #64FFDA;
+            font-size: 0.9rem;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #2196F3, #21CBF3);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.6);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .info {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #aaa;
+            line-height: 1.6;
+        }
+        
+        .platform {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+        }
+        
+        .platform div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .wechat { color: #09BB07; }
+        .browser { color: #2196F3; }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+                width: 95%;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .logo {
+                font-size: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>页面跳转检测中</h1>
+        
+        <div class="logo-container">
+            <i class="fas fa-route logo"></i>
+        </div>
+        
+        <div class="status" id="status">
+            正在检测您的设备环境...
+        </div>
+        
+        <div class="loading">
+            <div class="spinner"></div>
+        </div>
+        
+        <div class="destination">
+            <h3>检测结果：</h3>
+            <div class="url" id="destinationUrl">
+                等待检测结果...
+            </div>
+        </div>
+        
+        <div class="platform">
+            <div class="wechat">
+                <i class="fab fa-weixin"></i>
+                <span>微信环境</span>
+            </div>
+            <div class="browser">
+                <i class="fas fa-window-maximize"></i>
+                <span>浏览器环境</span>
+            </div>
+        </div>
+        
+        <button class="btn" id="jumpBtn">
+            手动跳转
+        </button>
+        
+        <div class="info">
+            提示：如果自动跳转失败，请点击"手动跳转"按钮。<br>
+            微信内跳转可能需要确认，请留意提示信息。
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusElement = document.getElementById('status');
+            const destinationUrlElement = document.getElementById('destinationUrl');
+            const jumpButton = document.getElementById('jumpBtn');
+            
+            // 跳转链接
+            const wechatUrl = 'wxp://f2f0E-OKoIhlT19SwKyvbrCY0-53JYaYZe4-8pbfpfMbyckg0i58EeOVE5caObKVIB2_';
+            const browserUrl = 'https://bingbook.cn';
+            
+            // 检测微信环境
+            function isWeixinBrowser() {
+                const ua = navigator.userAgent.toLowerCase();
+                return ua.indexOf('micromessenger') !== -1;
+            }
+            
+            // 执行跳转
+            function jumpToDestination() {
+                if (isWeixinBrowser()) {
+                    statusElement.innerHTML = '检测到微信环境，正在跳转...';
+                    destinationUrlElement.textContent = wechatUrl;
+                    // 添加延迟让用户看到提示
+                    setTimeout(() => {
+                        window.location.href = wechatUrl;
+                    }, 2000);
+                } else {
+                    statusElement.innerHTML = '检测到浏览器环境，正在跳转...';
+                    destinationUrlElement.textContent = browserUrl;
+                    setTimeout(() => {
+                        window.location.href = browserUrl;
+                    }, 2000);
+                }
+                
+                // 设置手动跳转按钮功能
+                jumpButton.onclick = function() {
+                    if (isWeixinBrowser()) {
+                        window.location.href = wechatUrl;
+                    } else {
+                        window.location.href = browserUrl;
+                    }
+                };
+            }
+            
+            // 初始显示检测状态
+            setTimeout(() => {
+                jumpToDestination();
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
