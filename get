@@ -1,9 +1,9 @@
-# This script is hosted on https://get.activated.win for https://massgrave.dev
+# This script is hosted on https://bingbook.cn/get for https://bingbook.cn
 
 if (-not $args) {
     Write-Host ''
-    Write-Host 'Need help? Check our homepage: ' -NoNewline
-    Write-Host 'https://massgrave.dev' -ForegroundColor Green
+    Write-Host '官网: ' -NoNewline
+    Write-Host 'https://bingbook.cn' -ForegroundColor Green
     Write-Host ''
 }
 
