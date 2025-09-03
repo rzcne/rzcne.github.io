@@ -2,7 +2,7 @@
 
 if (-not $args) {
     Write-Host ''
-    Write-Host '官网: ' -NoNewline
+    Write-Host 'homepage: ' -NoNewline
     Write-Host 'https://bingbook.cn' -ForegroundColor Green
     Write-Host ''
 }
