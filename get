@@ -1,8 +1,8 @@
-# 此脚本托管于 https://bingbook.cn/get 用于 https://bingbook.cn
+# This script is hosted on https://bingbook.cn/get for https://bingbook.cn
 
 if (-not $args) {
     Write-Host ''
-    Write-Host '官网: ' -NoNewline
+    Write-Host 'homepage: ' -NoNewline
     Write-Host 'https://bingbook.cn' -ForegroundColor Green
     Write-Host ''
 }
@@ -13,8 +13,8 @@ if (-not $args) {
 
     if ($ExecutionContext.SessionState.LanguageMode.value__ -ne 0) {
         $ExecutionContext.SessionState.LanguageMode
-        Write-Host "PowerShell 未在完全语言模式下运行。"
-        Write-Host "帮助 - https://gravesoft.dev/fix_powershell" -ForegroundColor White -BackgroundColor Blue
+        Write-Host "PowerShell is not running in Full Language Mode."
+        Write-Host "Help - https://gravesoft.dev/fix_powershell" -ForegroundColor White -BackgroundColor Blue
         return
     }
 
@@ -22,9 +22,9 @@ if (-not $args) {
         [void][System.AppDomain]::CurrentDomain.GetAssemblies(); [void][System.Math]::Sqrt(144)
     }
     catch {
-        Write-Host "错误: $($_.Exception.Message)" -ForegroundColor Red
-        Write-Host "PowerShell 加载 .NET 命令失败。"
-        Write-Host "帮助 - https://gravesoft.dev/in-place_repair_upgrade" -ForegroundColor White -BackgroundColor Blue
+        Write-Host "Error: $($_.Exception.Message)" -ForegroundColor Red
+        Write-Host "Powershell failed to load .NET command."
+        Write-Host "Help - https://gravesoft.dev/in-place_repair_upgrade" -ForegroundColor White -BackgroundColor Blue
         return
     }
 
@@ -33,7 +33,7 @@ if (-not $args) {
         $avList = & $cmd -Namespace root\SecurityCenter2 -Class AntiVirusProduct | Where-Object { $_.displayName -notlike '*windows*' } | Select-Object -ExpandProperty displayName
 
         if ($avList) {
-            Write-Host '第三方杀毒软件可能正在阻止脚本运行 - ' -ForegroundColor White -BackgroundColor Blue -NoNewline
+            Write-Host '3rd party Antivirus might be blocking the script - ' -ForegroundColor White -BackgroundColor Blue -NoNewline
             Write-Host " $($avList -join ', ')" -ForegroundColor DarkRed -BackgroundColor White
         }
     }
@@ -42,8 +42,8 @@ if (-not $args) {
         param ([string]$FilePath)
         if (-not (Test-Path $FilePath)) {
             Check3rdAV
-            Write-Host "无法在临时文件夹中创建 MAS 文件，操作中止！"
-            Write-Host "帮助 - $troubleshoot" -ForegroundColor White -BackgroundColor Blue
+            Write-Host "Failed to create MAS file in temp folder, aborting!"
+            Write-Host "Help - $troubleshoot" -ForegroundColor White -BackgroundColor Blue
             throw
         }
     }
@@ -55,7 +55,7 @@ if (-not $args) {
         'https://dev.azure.com/massgrave/Microsoft-Activation-Scripts/_apis/git/repositories/Microsoft-Activation-Scripts/items?path=/MAS/All-In-One-Version-KL/MAS_AIO.cmd&versionType=Commit&version=3917497c826685ffc6f3d025397e5c8c4f7fa744',
         'https://git.activated.win/massgrave/Microsoft-Activation-Scripts/raw/commit/3917497c826685ffc6f3d025397e5c8c4f7fa744/MAS/All-In-One-Version-KL/MAS_AIO.cmd'
     )
-    Write-Progress -Activity "正在下载..." -Status "请稍候"
+    Write-Progress -Activity "Downloading..." -Status "Please wait"
     $errors = @()
     foreach ($URL in $URLs | Sort-Object { Get-Random }) {
         try {
@@ -72,20 +72,20 @@ if (-not $args) {
             $errors += $_
         }
     }
-    Write-Progress -Activity "正在下载..." -Status "完成" -Completed
+    Write-Progress -Activity "Downloading..." -Status "Done" -Completed
 
     if (-not $response) {
         Check3rdAV
         foreach ($err in $errors) {
-            Write-Host "错误: $($err.Exception.Message)" -ForegroundColor Red
+            Write-Host "Error: $($err.Exception.Message)" -ForegroundColor Red
         }
-        Write-Host "无法从任何可用仓库获取 MAS，操作中止！"
-        Write-Host "请检查杀毒软件或防火墙是否阻止了连接。"
-        Write-Host "帮助 - $troubleshoot" -ForegroundColor White -BackgroundColor Blue
+        Write-Host "Failed to retrieve MAS from any of the available repositories, aborting!"
+        Write-Host "Check if antivirus or firewall is blocking the connection."
+        Write-Host "Help - $troubleshoot" -ForegroundColor White -BackgroundColor Blue
         return
     }
 
-    # 验证脚本完整性
+    # Verify script integrity
     $releaseHash = '4A0123C97E7859679DD49F22D5948FD77A775CC526B9E07797FC293C6C7731BC'
     $stream = New-Object IO.MemoryStream
     $writer = New-Object IO.StreamWriter $stream
@@ -94,16 +94,16 @@ if (-not $args) {
     $stream.Position = 0
     $hash = [BitConverter]::ToString([Security.Cryptography.SHA256]::Create().ComputeHash($stream)) -replace '-'
     if ($hash -ne $releaseHash) {
-        Write-Warning "哈希值 ($hash) 不匹配，操作中止！`n请将此问题报告至 $troubleshoot"
+        Write-Warning "Hash ($hash) mismatch, aborting!`nReport this issue at $troubleshoot"
         $response = $null
         return
     }
 
-    # 检查可能引起 CMD 问题的 AutoRun 注册表项
+    # Check for AutoRun registry which may create issues with CMD
     $paths = "HKCU:\SOFTWARE\Microsoft\Command Processor", "HKLM:\SOFTWARE\Microsoft\Command Processor"
     foreach ($path in $paths) { 
         if (Get-ItemProperty -Path $path -Name "Autorun" -ErrorAction SilentlyContinue) { 
-            Write-Warning "发现 Autorun 注册表项，CMD 可能会崩溃！`n请手动复制粘贴以下命令进行修复...`nRemove-ItemProperty -Path '$path' -Name 'Autorun'"
+            Write-Warning "Autorun registry found, CMD may crash! `nManually copy-paste the below command to fix...`nRemove-ItemProperty -Path '$path' -Name 'Autorun'"
         } 
     }
 
@@ -116,12 +116,12 @@ if (-not $args) {
     $env:ComSpec = "$env:SystemRoot\system32\cmd.exe"
     $chkcmd = & $env:ComSpec /c "echo CMD is working"
     if ($chkcmd -notcontains "CMD is working") {
-        Write-Warning "cmd.exe 无法正常工作。`n请将此问题报告至 $troubleshoot"
+        Write-Warning "cmd.exe is not working.`nReport this issue at $troubleshoot"
     }
 
     if ($psv -lt 3) {
         if (Test-Path "$env:SystemRoot\Sysnative") {
-            Write-Warning "命令正在 x86 PowerShell 中运行，请改用 x64 PowerShell 运行..."
+            Write-Warning "Command is running with x86 Powershell, run it with x64 Powershell instead..."
             return
         }
         $p = saps -FilePath $env:ComSpec -ArgumentList "/c """"$FilePath"" -el -qedit $args""" -Verb RunAs -PassThru
