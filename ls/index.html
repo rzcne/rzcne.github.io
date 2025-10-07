@@ -287,7 +287,7 @@
                 const encryptedData = simpleEncrypt(JSON.stringify(data), key);
                 
                 // 生成临时链接（指向redirect.html）
-                const tempLink = `${window.location.origin}${window.location.pathname.replace('/ls/index.html', '/ls/redirect.html')}?token=${encodeURIComponent(encryptedData)}&key=${encodeURIComponent(key)}`;
+                const tempLink = `${window.location.origin}${window.location.pathname.replace('bingbook.cn/ls/index.html', 'bingbook.cn/ls/redirect.html')}?token=${encodeURIComponent(encryptedData)}&key=${encodeURIComponent(key)}`;
                 
                 // 显示结果
                 resultLink.textContent = tempLink;
