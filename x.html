@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>临时加密链接生成器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            opacity: 0.8;
+            font-size: 16px;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        input:focus, select:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+            font-weight: 600;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+        }
+        
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .result h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .result-url {
+            word-break: break-all;
+            padding: 12px;
+            background: white;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            border: 1px dashed #3498db;
+        }
+        
+        .copy-btn {
+            background: #2ecc71;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: 600;
+        }
+        
+        .copy-btn:hover {
+            background: #27ae60;
+        }
+        
+        .info-box {
+            background: #e8f4fc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 25px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .info-box h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .info-box ul {
+            padding-left: 20px;
+        }
+        
+        .info-box li {
+            margin-bottom: 8px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #ecf0f1;
+        }
+        
+        @media (max-width: 600px) {
+            .content {
+                padding: 20px;
+            }
+            
+            header h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>临时加密链接生成器</h1>
+            <p>创建有时间限制的安全链接，隐藏原始URL</p>
+        </header>
+        
+        <div class="content">
+            <div class="form-group">
+                <label for="original-url">原始链接</label>
+                <input type="url" id="original-url" placeholder="https://example.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="duration">链接有效时长</label>
+                <select id="duration">
+                    <option value="1">1小时</option>
+                    <option value="6">6小时</option>
+                    <option value="24" selected>24小时</option>
+                    <option value="168">1周</option>
+                    <option value="720">1个月</option>
+                </select>
+            </div>
+            
+            <button id="generate-btn" class="btn">生成加密链接</button>
+            
+            <div id="result" class="result">
+                <h3>您的临时加密链接</h3>
+                <div id="result-url" class="result-url"></div>
+                <button id="copy-btn" class="copy-btn">复制链接</button>
+            </div>
+            
+            <div class="info-box">
+                <h3>工作原理</h3>
+                <ul>
+                    <li>原始链接经过编码处理，不会在生成的URL中直接显示</li>
+                    <li>生成的临时链接将在指定时间后失效</li>
+                    <li>访问临时链接将自动重定向到原始地址</li>
+                    <li>所有处理在浏览器本地完成，不会存储您的数据</li>
+                </ul>
+            </div>
+        </div>
+        
+        <footer>
+            <p>临时加密链接生成器 &copy; 2023 - 保护您的链接隐私</p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('generate-btn').addEventListener('click', function() {
+            const originalUrl = document.getElementById('original-url').value;
+            const duration = document.getElementById('duration').value;
+            
+            if (!originalUrl) {
+                alert('请输入原始链接');
+                return;
+            }
+            
+            // 创建临时链接数据
+            const linkData = {
+                url: originalUrl,
+                expires: Date.now() + (duration * 60 * 60 * 1000) // 转换为毫秒
+            };
+            
+            // 编码数据（在实际应用中应使用更强的加密）
+            const encodedData = btoa(JSON.stringify(linkData));
+            
+            // 生成临时链接
+            const tempUrl = `${window.location.origin}${window.location.pathname}#${encodedData}`;
+            
+            // 显示结果
+            document.getElementById('result-url').textContent = tempUrl;
+            document.getElementById('result').style.display = 'block';
+            
+            // 滚动到结果区域
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // 复制功能
+        document.getElementById('copy-btn').addEventListener('click', function() {
+            const resultUrl = document.getElementById('result-url').textContent;
+            navigator.clipboard.writeText(resultUrl).then(function() {
+                const originalText = this.textContent;
+                this.textContent = '已复制!';
+                
+                setTimeout(() => {
+                    this.textContent = originalText;
+                }, 2000);
+            }.bind(this));
+        });
+        
+        // 检查URL中是否有加密数据并处理重定向
+        window.addEventListener('DOMContentLoaded', function() {
+            if (window.location.hash) {
+                try {
+                    const encodedData = window.location.hash.substring(1);
+                    const linkData = JSON.parse(atob(encodedData));
+                    
+                    // 检查链接是否过期
+                    if (Date.now() > linkData.expires) {
+                        document.body.innerHTML = `
+                            <div class="container" style="text-align: center; padding: 50px;">
+                                <h2>链接已过期</h2>
+                                <p>此临时链接已超过有效期限。</p>
+                                <a href="${window.location.pathname}">生成新的临时链接</a>
+                            </div>
+                        `;
+                        return;
+                    }
+                    
+                    // 重定向到原始URL
+                    window.location.href = linkData.url;
+                    
+                } catch (e) {
+                    console.error('无效的临时链接');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
