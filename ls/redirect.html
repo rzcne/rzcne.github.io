@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>链接重定向</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #4776E6, #8E54E9);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+        
+        .content {
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .status-box {
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        
+        .success {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .error {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+        
+        .countdown {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #4776E6;
+            margin: 20px 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(to right, #4776E6, #8E54E9);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            margin: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(to right, #757575, #9e9e9e);
+        }
+        
+        .info-box {
+            background-color: #e3f2fd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 25px;
+            border-left: 4px solid #2196F3;
+            text-align: left;
+        }
+        
+        .info-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1565C0;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                border-radius: 12px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .countdown {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>安全链接重定向</h1>
+            <p>正在验证您的链接...</p>
+        </div>
+        
+        <div class="content">
+            <div id="statusBox" class="status-box">
+                <!-- 状态信息将在这里显示 -->
+            </div>
+            
+            <div id="countdown" class="countdown" style="display: none;">
+                <!-- 倒计时将在这里显示 -->
+            </div>
+            
+            <div id="actionButtons" style="display: none;">
+                <!-- 操作按钮将在这里显示 -->
+            </div>
+            
+            <div class="info-box">
+                <div class="info-title">安全提示</div>
+                <p>此链接为加密临时链接，具有时效性保护。系统会自动验证链接的有效性，确保您的访问安全。</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>安全链接系统 &copy; 2025</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusBox = document.getElementById('statusBox');
+            const countdownElement = document.getElementById('countdown');
+            const actionButtons = document.getElementById('actionButtons');
+            
+            // 简单解密函数
+            function simpleDecrypt(encryptedText, key) {
+                try {
+                    const decodedText = atob(encryptedText);
+                    let result = '';
+                    for (let i = 0; i < decodedText.length; i++) {
+                        result += String.fromCharCode(decodedText.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+                    }
+                    return result;
+                } catch (e) {
+                    return null;
+                }
+            }
+            
+            // 获取URL参数
+            function getUrlParameter(name) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(name);
+            }
+            
+            // 验证并处理链接
+            function processLink() {
+                const token = getUrlParameter('token');
+                
+                if (!token) {
+                    showError('无效的链接参数，缺少加密令牌。');
+                    return;
+                }
+                
+                // 尝试解密数据
+                let decryptedData;
+                try {
+                    // 这里应该使用固定的密钥或从服务器获取密钥
+                    const fixedKey = "demoKey123456789";
+                    const decryptedText = simpleDecrypt(decodeURIComponent(token), fixedKey);
+                    
+                    if (!decryptedText) {
+                        showError('链接解密失败，可能是无效的加密令牌。');
+                        return;
+                    }
+                    
+                    decryptedData = JSON.parse(decryptedText);
+                } catch (e) {
+                    showError('链接数据格式错误，无法解析。');
+                    return;
+                }
+                
+                // 检查链接是否过期
+                const currentTime = new Date().getTime();
+                if (currentTime > decryptedData.expires) {
+                    showError('此链接已过期，无法访问。');
+                    return;
+                }
+                
+                // 显示成功信息和倒计时
+                showSuccess(decryptedData.url, decryptedData.expires);
+            }
+            
+            // 显示错误信息
+            function showError(message) {
+                statusBox.className = 'status-box error';
+                statusBox.innerHTML = `
+                    <h2>链接验证失败</h2>
+                    <p>${message}</p>
+                    <p>请检查链接是否正确，或联系链接提供者获取新的有效链接。</p>
+                `;
+                
+                actionButtons.style.display = 'block';
+                actionButtons.innerHTML = `
+                    <a href="index.html" class="btn">创建新链接</a>
+                    <a href="#" onclick="location.reload()" class="btn btn-secondary">重新验证</a>
+                `;
+            }
+            
+            // 显示成功信息并开始倒计时
+            function showSuccess(targetUrl, expiryTime) {
+                statusBox.className = 'status-box success';
+                statusBox.innerHTML = `
+                    <h2>链接验证成功</h2>
+                    <p>您即将被重定向到目标页面：</p>
+                    <p><strong>${targetUrl}</strong></p>
+                    <p>如果浏览器没有自动跳转，请点击下方按钮。</p>
+                `;
+                
+                countdownElement.style.display = 'block';
+                actionButtons.style.display = 'block';
+                actionButtons.innerHTML = `
+                    <a href="${targetUrl}" class="btn" id="redirectBtn">立即跳转</a>
+                    <a href="index.html" class="btn btn-secondary">创建新链接</a>
+                `;
+                
+                // 开始倒计时
+                let countdown = 5;
+                updateCountdown(countdown);
+                
+                const countdownInterval = setInterval(() => {
+                    countdown--;
+                    updateCountdown(countdown);
+                    
+                    if (countdown <= 0) {
+                        clearInterval(countdownInterval);
+                        window.location.href = targetUrl;
+                    }
+                }, 1000);
+            }
+            
+            // 更新倒计时显示
+            function updateCountdown(seconds) {
+                countdownElement.textContent = `${seconds}`;
+            }
+            
+            // 初始化处理
+            processLink();
+        });
+    </script>
+</body>
+</html>
