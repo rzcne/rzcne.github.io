@@ -211,18 +211,17 @@
             // 验证并处理链接
             function processLink() {
                 const token = getUrlParameter('token');
+                const key = getUrlParameter('key');
                 
-                if (!token) {
-                    showError('无效的链接参数，缺少加密令牌。');
+                if (!token || !key) {
+                    showError('无效的链接参数，缺少加密令牌或密钥。');
                     return;
                 }
                 
                 // 尝试解密数据
                 let decryptedData;
                 try {
-                    // 这里应该使用固定的密钥或从服务器获取密钥
-                    const fixedKey = "demoKey123456789";
-                    const decryptedText = simpleDecrypt(decodeURIComponent(token), fixedKey);
+                    const decryptedText = simpleDecrypt(decodeURIComponent(token), decodeURIComponent(key));
                     
                     if (!decryptedText) {
                         showError('链接解密失败，可能是无效的加密令牌。');
@@ -231,6 +230,7 @@
                     
                     decryptedData = JSON.parse(decryptedText);
                 } catch (e) {
+                    console.error(e);
                     showError('链接数据格式错误，无法解析。');
                     return;
                 }
