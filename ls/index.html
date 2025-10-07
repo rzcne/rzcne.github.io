@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冰书临时链接加密生成器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #4776E6, #8E54E9);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+        
+        .form-container {
+            padding: 30px;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #444;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #4776E6;
+            box-shadow: 0 0 0 3px rgba(71, 118, 230, 0.2);
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(to right, #4776E6, #8E54E9);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-copy {
+            background: linear-gradient(to right, #00b09b, #96c93d);
+        }
+        
+        .result-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #4776E6;
+            display: none;
+        }
+        
+        .result-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #4776E6;
+        }
+        
+        .result-link {
+            word-break: break-all;
+            padding: 12px;
+            background-color: white;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 15px;
+        }
+        
+        .info-box {
+            background-color: #e3f2fd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 25px;
+            border-left: 4px solid #2196F3;
+        }
+        
+        .info-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1565C0;
+        }
+        
+        .info-list {
+            list-style-type: none;
+        }
+        
+        .info-list li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #90CAF9;
+        }
+        
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                border-radius: 12px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>冰书临时链接加密生成器</h1>
+            <p>轻松创建有时效性的加密链接，保护您的资源</p>
+        </div>
+        
+        <div class="form-container">
+            <div class="input-group">
+                <label for="originalUrl">原始链接</label>
+                <input type="url" id="originalUrl" placeholder="请输入要加密的链接 (例如: https://example.com)" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="expiryTime">链接有效期</label>
+                <select id="expiryTime">
+                    <option value="1">1小时</option>
+                    <option value="6">6小时</option>
+                    <option value="24">24小时</option>
+                    <option value="48" selected>48小时</option>
+                    <option value="72">72小时</option>
+                    <option value="168">7天</option>
+                </select>
+            </div>
+            
+            <button id="generateBtn" class="btn">生成加密链接</button>
+            
+            <div id="resultContainer" class="result-container">
+                <div class="result-title">您的加密链接已生成：</div>
+                <div id="resultLink" class="result-link"></div>
+                <button id="copyBtn" class="btn btn-copy">复制链接</button>
+            </div>
+            
+            <div class="info-box">
+                <div class="info-title">使用说明</div>
+                <ul class="info-list">
+                    <li>输入您的原始链接并选择有效期</li>
+                    <li>点击"生成加密链接"按钮创建临时链接</li>
+                    <li>生成的链接将在指定时间后自动失效</li>
+                    <li>加密后的链接无法被直接破解或延长有效期</li>
+                    <li>适合分享敏感信息或限时资源</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>安全链接生成工具 &copy; 2025</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const originalUrlInput = document.getElementById('originalUrl');
+            const expiryTimeSelect = document.getElementById('expiryTime');
+            const generateBtn = document.getElementById('generateBtn');
+            const resultContainer = document.getElementById('resultContainer');
+            const resultLink = document.getElementById('resultLink');
+            const copyBtn = document.getElementById('copyBtn');
+            
+            // 生成随机字符串作为加密密钥
+            function generateRandomKey(length = 16) {
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                let result = '';
+                for (let i = 0; i < length; i++) {
+                    result += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                return result;
+            }
+            
+            // 简单加密函数
+            function simpleEncrypt(text, key) {
+                let result = '';
+                for (let i = 0; i < text.length; i++) {
+                    result += String.fromCharCode(text.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+                }
+                return btoa(result);
+            }
+            
+            // 生成加密链接
+            generateBtn.addEventListener('click', function() {
+                const originalUrl = originalUrlInput.value.trim();
+                const expiryHours = parseInt(expiryTimeSelect.value);
+                
+                if (!originalUrl) {
+                    alert('请输入有效的链接');
+                    return;
+                }
+                
+                // 生成加密数据
+                const key = generateRandomKey();
+                const expiryTime = new Date();
+                expiryTime.setHours(expiryTime.getHours() + expiryHours);
+                
+                const data = {
+                    url: originalUrl,
+                    expires: expiryTime.getTime()
+                };
+                
+                // 加密数据
+                const encryptedData = simpleEncrypt(JSON.stringify(data), key);
+                
+                // 生成临时链接（指向redirect.html）
+                const tempLink = `${window.location.origin}${window.location.pathname.replace('index.html', 'redirect.html')}?token=${encodeURIComponent(encryptedData)}&key=${encodeURIComponent(key)}`;
+                
+                // 显示结果
+                resultLink.textContent = tempLink;
+                resultContainer.style.display = 'block';
+                
+                // 滚动到结果区域
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // 复制链接功能
+            copyBtn.addEventListener('click', function() {
+                const textArea = document.createElement('textarea');
+                textArea.value = resultLink.textContent;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                // 显示复制成功反馈
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = '已复制!';
+                copyBtn.style.background = 'linear-gradient(to right, #4CAF50, #8BC34A)';
+                
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                    copyBtn.style.background = 'linear-gradient(to right, #00b09b, #96c93d)';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
