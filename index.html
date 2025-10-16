@@ -271,7 +271,7 @@
             padding: 25px;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
         }
         
         .feature:hover {
@@ -431,6 +431,52 @@
         
         .read-more:hover i {
             transform: translateX(5px);
+        }
+        
+        /* 分页器样式 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            gap: 10px;
+        }
+        
+        .page-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            background: white;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .page-btn:hover {
+            background: var(--light);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(26, 115, 232, 0.2);
+        }
+        
+        .page-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(26, 115, 232, 0.3);
+        }
+        
+        .next-btn {
+            width: auto;
+            padding: 0 20px;
+        }
+        
+        /* 隐藏非第一页的文章 */
+        .page-2, .page-3 {
+            display: none;
         }
         
         /* 关注引导部分 */
@@ -669,6 +715,13 @@
         .indicator-dot:hover {
             background: var(--accent);
         }
+        
+        /* 动画元素初始状态 */
+        .animated-element {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
     </style>
 </head>
 <body>
@@ -726,22 +779,22 @@
                     <p>我们的使命是：在信息爆炸的时代，为您筛选最有价值的内容；在碎片化阅读的时代，为您提供深度思考的空间；在快节奏的生活中，为您保留一片阅读的净土。</p>
                     
                     <div class="features">
-                        <div class="feature">
+                        <div class="feature animated-element">
                             <i class="fas fa-mobile-alt"></i>
                             <h4>移动优先</h4>
                             <p>专为移动设备优化的阅读体验，随时随地获取知识</p>
                         </div>
-                        <div class="feature">
+                        <div class="feature animated-element">
                             <i class="fas fa-star"></i>
                             <h4>内容精选</h4>
                             <p>专业编辑团队精选优质内容，拒绝信息过载</p>
                         </div>
-                        <div class="feature">
+                        <div class="feature animated-element">
                             <i class="fas fa-users"></i>
                             <h4>社区互动</h4>
                             <p>连接志同道合的读者，共同探讨深度话题</p>
                         </div>
-                        <div class="feature">
+                        <div class="feature animated-element">
                             <i class="fas fa-sync-alt"></i>
                             <h4>每日更新</h4>
                             <p>每日推送新鲜内容，保持思想活力</p>
@@ -767,7 +820,8 @@
             </div>
             
             <div class="articles">
-                <div class="article-card">
+                <!-- 第一页文章 -->
+                <div class="article-card page-1 animated-element">
                     <div class="article-img">
                         <i class="fas fa-brain"></i>
                     </div>
@@ -778,7 +832,7 @@
                     </div>
                 </div>
                 
-                <div class="article-card">
+                <div class="article-card page-1 animated-element">
                     <div class="article-img">
                         <i class="fas fa-chart-line"></i>
                     </div>
@@ -789,16 +843,92 @@
                     </div>
                 </div>
                 
-                <div class="article-card">
+                <div class="article-card page-1 animated-element">
                     <div class="article-img">
                         <i class="fas fa-feather-alt"></i>
                     </div>
                     <div class="article-content">
-                        <h3>古典文学在数字时代的重生</h3>
-                        <p>传统文化如何借助新媒体焕发新生？探索经典与现代的完美融合。</p>
+                        <h3>春秋航空赚钱的秘密：天上没有免费的午餐</h3>
+                        <p>春秋航空用一场“抠门革命”重新定义了航空业的盈利逻辑</p>
+                        <a href="https://mp.weixin.qq.com/s/pYFCuGWy6y-KH4UQHLx2aA" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- 第二页文章 -->
+                <div class="article-card page-2 animated-element">
+                    <div class="article-img">
+                        <i class="fas fa-globe-asia"></i>
+                    </div>
+                    <div class="article-content">
+                        <h3>贫穷的本质，为什么我们摆脱不了贫穷</h3>
+                        <p>诺贝尔经济学奖授予了麻省理工学院的阿比吉特·巴纳吉与埃斯特·迪弗洛夫妇，以及哈佛大学的迈克尔·克雷默，以表彰他们在减轻全球贫困领域进行的卓越研究。今天，我希望与大家分享他们的核心研究成果，探讨我们是否能借此对“贫穷”产生更深刻、更本质的认识。</p>
+                        <a href="https://mp.weixin.qq.com/s/YJ9fICzjt3-Hxx0LL10LBw" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="article-card page-2 animated-element">
+                    <div class="article-img">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="article-content">
+                        <h3>古典文学在数字时代的重生：当《诗经》遇见短视频</h3>
+                        <p>古典与现代的对话，正在重构中华文化的传承图谱。</p>
                         <a href="https://mp.weixin.qq.com/s/siFWEpFdLCrXq16EKJBHVA" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
+                
+                <div class="article-card page-2 animated-element">
+                    <div class="article-img">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <div class="article-content">
+                        <h3>从匮乏到丰盈：中国60年铸就全球水果第一大国</h3>
+                        <p>中国以全球三分之一的水果产量、世界第一的消费规模，完成了从"果盘贫瘠"到"水果自由"的历史跨越。</p>
+                        <a href="https://mp.weixin.qq.com/s/xiKVgPtM6Tbo3h8nr8Jr3A" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- 第三页文章 -->
+                <div class="article-card page-3 animated-element">
+                    <div class="article-img">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="article-content">
+                        <h3>AI原生架构重塑企业AI战略落地底层逻辑</h3>
+                        <p>当OpenAI以万亿美元订单重构AI基础设施时，全球企业同步开启了一场以“AI原生架构”为核心的转型实验</p>
+                        <a href="https://mp.weixin.qq.com/s/J0qoGgBWwxMZxNIo8eoWFQ" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="article-card page-3 animated-element">
+                    <div class="article-img">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="article-content">
+                        <h3>四个关键问题拆解宗馥莉二次请辞：权力、商标与家族企业的终极博弈</h3>
+                        <p>宗馥莉与娃哈哈集团长达一年的权力拉锯战、商标争夺战以及家族遗产继承纠纷的集中爆发</p>
+                        <a href="https://mp.weixin.qq.com/s/6xRcEhi6yVdSXhEbpai46A" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="article-card page-3 animated-element">
+                    <div class="article-img">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="article-content">
+                        <h3>情绪经济开启万亿赛道新纪元</h3>
+                        <p>2025年国庆黄金周，一位被称为“鸡排哥”的江西景德镇小摊主意外成为现象级IP。揭示着中国消费市场从“物质满足”向“情感共鸣”转型的深层逻辑。</p>
+                     <a href="https://mp.weixin.qq.com/s/example7" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 分页器 -->
+            <div class="pagination">
+                <div class="page-btn active" data-page="1">1</div>
+                <div class="page-btn" data-page="2">2</div>
+                <div class="page-btn" data-page="3">3</div>
+                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzkwNjc1MDk3Ng==&scene=124#wechat_redirect" class="page-btn next-btn">下一页</a>
             </div>
         </div>
     </section>
@@ -816,7 +946,7 @@
     <footer id="contact">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-col">
+                <div class="footer-col animated-element">
                     <h3>关于冰书</h3>
                     <p>冰书是基于公众号冰书社运营的移动互联网媒体，致力于为读者提供高质量的阅读内容和深度的思想交流平台。</p>
                     <div class="social-links">
@@ -827,7 +957,7 @@
                     </div>
                 </div>
                 
-                <div class="footer-col">
+                <div class="footer-col animated-element">
                     <h3>内容栏目</h3>
                     <p>科技前沿</p>
                     <p>人文思考</p>
@@ -836,7 +966,7 @@
                     <p>读者投稿</p>
                 </div>
                 
-                <div class="footer-col">
+                <div class="footer-col animated-element">
                     <h3>联系我们</h3>
                     <p><i class="fas fa-envelope"></i> mail@bingbook.cn</p>
                     <p><i class="fas fa-phone"></i> (86) 123-4567-8910</p>
@@ -912,7 +1042,7 @@
             updateNavIndicator(currentSection);
         });
         
-        // 卡片悬停效果增强
+        // 卡片悬停效果
         const cards = document.querySelectorAll('.article-card, .feature');
         cards.forEach(card => {
             card.addEventListener('mouseenter', () => {
@@ -926,7 +1056,7 @@
         
         // 页面加载动画
         window.addEventListener('load', () => {
-            const elements = document.querySelectorAll('.feature, .article-card, .footer-col');
+            const elements = document.querySelectorAll('.animated-element');
             elements.forEach((el, index) => {
                 setTimeout(() => {
                     el.style.opacity = '1';
@@ -935,11 +1065,31 @@
             });
         });
         
-        // 初始化元素样式
-        document.querySelectorAll('.feature, .article-card, .footer-col').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        // 分页功能
+        document.querySelectorAll('.page-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // 如果是下一页按钮，不执行切换逻辑
+                if (this.classList.contains('next-btn')) return;
+                
+                // 获取页码
+                const page = this.getAttribute('data-page');
+                
+                // 分页按钮状态
+                document.querySelectorAll('.page-btn').forEach(b => {
+                    b.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // 隐藏所有文章
+                document.querySelectorAll('.article-card').forEach(card => {
+                    card.style.display = 'none';
+                });
+                
+                // 显示当前页的文章
+                document.querySelectorAll(`.page-${page}`).forEach(card => {
+                    card.style.display = 'block';
+                });
+            });
         });
     </script>
 </body>
