@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网站安全警告</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .warning-container {
+            max-width: 800px;
+            padding: 40px;
+            text-align: center;
+            background: rgba(30, 30, 30, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+            z-index: 10;
+            position: relative;
+            border: 2px solid #ff3333;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(255, 0, 0, 0.6); }
+            100% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.3); }
+        }
+        
+        .warning-icon {
+            font-size: 80px;
+            color: #ff3333;
+            margin-bottom: 20px;
+            animation: shake 0.5s infinite alternate;
+        }
+        
+        @keyframes shake {
+            0% { transform: translateX(-5px); }
+            100% { transform: translateX(5px); }
+        }
+        
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #ff3333;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+        
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #e0e0e0;
+        }
+        
+        .info-box {
+            background: rgba(255, 0, 0, 0.1);
+            border-left: 4px solid #ff3333;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: left;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .contact-info {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+        }
+        
+        .contact-info p {
+            margin-bottom: 10px;
+        }
+        
+        .timer {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #ff9900;
+        }
+        
+        .background-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .floating-icon {
+            position: absolute;
+            font-size: 24px;
+            color: rgba(255, 0, 0, 0.3);
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .warning-container {
+                margin: 20px;
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 背景动画元素 -->
+    <div class="background-animation" id="backgroundAnimation"></div>
+    
+    <!-- 主警告容器 -->
+    <div class="warning-container">
+        <div class="warning-icon">⚠</div>
+        <h1>网站正在遭受攻击</h1>
+        <p>我们的系统检测到异常流量和恶意攻击行为，为保护您的数据和我们的服务，网站暂时无法访问。</p>
+        
+        <div class="info-box">
+            <p>我们的安全团队正在全力应对此次攻击，预计服务将在短时间内恢复正常。</p>
+        </div>
+        
+        <div class="timer">
+            预计恢复时间: <span id="countdown">30:00</span>
+        </div>
+        
+        <p>对于给您带来的不便，我们深表歉意。感谢您的理解和耐心等待。</p>
+        
+        <div class="contact-info">
+            <p>如需紧急联系，请发送邮件至: <strong>mail@bingbook.cn</strong></p>
+            <p>或关注我们的社交媒体获取最新状态更新。</p>
+        </div>
+    </div>
+
+    <script>
+        // 创建背景动画元素
+        const backgroundAnimation = document.getElementById('backgroundAnimation');
+        const icons = ['🔒', '🛡️', '⚠', '🚫', '🔍'];
+        
+        for (let i = 0; i < 20; i++) {
+            const icon = document.createElement('div');
+            icon.className = 'floating-icon';
+            icon.textContent = icons[Math.floor(Math.random() * icons.length)];
+            icon.style.left = `${Math.random() * 100}%`;
+            icon.style.animationDelay = `${Math.random() * 15}s`;
+            icon.style.fontSize = `${Math.random() * 20 + 15}px`;
+            backgroundAnimation.appendChild(icon);
+        }
+        
+        // 倒计时功能
+        let timeLeft = 30 * 60; // 30分钟
+        const countdownElement = document.getElementById('countdown');
+        
+        function updateCountdown() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            
+            countdownElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeLeft > 0) {
+                timeLeft--;
+                setTimeout(updateCountdown, 1000);
+            } else {
+                countdownElement.textContent = "正在恢复...";
+            }
+        }
+        
+        updateCountdown();
+    </script>
+</body>
+</html>
