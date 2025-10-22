@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<!-- ico图标 -->
+    <link rel="shortcut icon" type="image/x-icon" sizes="16x16" href="https://bingbook.cn/ico/favicon16x16.ico">
+    <link rel="shortcut icon" type="image/x-icon" sizes="32x32" href="https://bingbook.cn/ico/favicon32x32.ico">
+    <link rel="shortcut icon" type="image/x-icon" sizes="48x48" href="https://bingbook.cn/ico/favicon48x48.ico">
+    <link rel="shortcut icon" type="image/x-icon" sizes="64x64" href="https://bingbook.cn/ico/favicon64x64.ico">
+    <link rel="shortcut icon" type="image/x-icon" sizes="128x128" href="https://bingbook.cn/ico/favicon128x128.ico">
+    <link rel="shortcut icon" type="image/x-icon" sizes="256x256" href="https://bingbook.cn/ico/favicon256x256.ico">
+    <link rel="shortcut icon" type="image/x-icon" sizes="512x512" href="https://bingbook.cn/ico/favicon512x512.ico">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ST景峰重整分析报告</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background: linear-gradient(135deg, #1a6dba 0%, #0d4d8c 100%);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            text-align: center;
+            position: relative;
+        }
+        .subtitle {
+            font-size: 18px;
+            text-align: center;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .date {
+            text-align: center;
+            font-size: 16px;
+            opacity: 0.8;
+            position: relative;
+        }
+        .summary-box {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #1a6dba;
+        }
+        .summary-box h2 {
+            color: #1a6dba;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .highlight {
+            background-color: #fff9e6;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        .section:hover {
+            transform: translateY(-5px);
+        }
+        .section h2 {
+            color: #1a6dba;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .section h2:before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 24px;
+            background-color: #1a6dba;
+            margin-right: 10px;
+            border-radius: 4px;
+        }
+        .subsection {
+            margin-bottom: 25px;
+        }
+        .subsection h3 {
+            color: #e67e22;
+            margin-bottom: 12px;
+            font-size: 18px;
+            padding-left: 15px;
+            border-left: 3px solid #e67e22;
+        }
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .data-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            transition: all 0.3s ease;
+        }
+        .data-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .data-card h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .data-card p {
+            font-size: 14px;
+            color: #555;
+        }
+        .finance-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        .finance-table th, .finance-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        .finance-table th {
+            background-color: #f2f2f2;
+            color: #333;
+            font-weight: 600;
+        }
+        .finance-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .finance-table tr:hover {
+            background-color: #f1f7fd;
+        }
+        .risk-indicator {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        .high-risk {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        .medium-risk {
+            background-color: #fff8e1;
+            color: #ff8f00;
+        }
+        .low-risk {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        .key-points {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .key-points li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            border-bottom: 1px dashed #eee;
+        }
+        .key-points li:before {
+            content: "•";
+            color: #1a6dba;
+            font-size: 24px;
+            position: absolute;
+            left: 0;
+            top: 5px;
+        }
+        .conclusion {
+            background: linear-gradient(135deg, #1a6dba 0%, #0d4d8c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .conclusion h2 {
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .wechat-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 40px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid #1a6dba;
+        }
+        .wechat-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .wechat-qr {
+            width: 200px;
+            height: 200px;
+            margin: 20px 0;
+            border: 1px solid #eee;
+            padding: 10px;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .wechat-text {
+            margin-top: 15px;
+            color: #666;
+            line-height: 1.8;
+        }
+        .wechat-text h3 {
+            color: #1a6dba;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #777;
+            font-size: 14px;
+            border-top: 1px solid #eaeaea;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            .data-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .section {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>"妖股"ST景峰拿到重整路条，石药5亿救场能否改写退市命运？</h1>
+            <div class="subtitle">一场资本与产业的博弈，A股市场困境企业重整的典型样本</div>
+            <div class="date">2025年10月21日</div>
+        </header>
+
+        <div class="summary-box">
+            <h2>核心要点</h2>
+            <p>2025年10月21日，湖南省常德市中级人民法院正式裁定受理债权人对ST景峰（000908.SZ）的重整申请，并指定北京市中伦律师事务所担任管理人。这家曾因股价剧烈波动被称为"妖股"的医药企业，在连续五年亏损、资产负债率飙升至114.49%后，终于踏上了重整的关键转折点。</p>
+            
+            <div class="highlight">
+                <p><strong>关键看点：</strong>石药集团携5.26亿元现金入局，能否成为其改写退市命运的"救世主"？这场资本与产业的博弈，正成为A股市场困境企业重整的典型样本。</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>一、景峰医药的坠落：从"仿制药白马"到"退市边缘"</h2>
+            
+            <div class="subsection">
+                <h3>1. 辉煌与坠落：业绩断崖式下滑</h3>
+                <p>景峰医药的前身为益佰制药子公司，2014年借壳天一科技上市后，凭借核心产品参芎葡萄糖注射液（年销售额峰值超10亿元）和榄香烯系列抗肿瘤药物，一度成为A股"仿制药白马"。</p>
+                
+                <div class="data-grid">
+                    <div class="data-card">
+                        <h4>股价表现</h4>
+                        <p>2015年大牛市期间，其股价从3.87元飙升至24.45元，四年涨幅达530%。</p>
+                    </div>
+                    <div class="data-card">
+                        <h4>转折点</h4>
+                        <p>2019年成为其命运的分水岭：医保控费、辅助用药重点监控等政策落地，参芎葡萄糖注射液未进入当年国家医保目录，榄香烯乳状注射液医保支付范围大幅缩窄。</p>
+                    </div>
+                    <div class="data-card">
+                        <h4>业绩恶化</h4>
+                        <p>公司营业收入骤降近50%，注射剂产品收入下滑超70%。此后五年，公司归母净利润累计亏损近24亿元。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3>2. 债务危机与退市风险</h3>
+                
+                <table class="finance-table">
+                    <tr>
+                        <th>时间</th>
+                        <th>事件</th>
+                        <th>财务状况</th>
+                    </tr>
+                    <tr>
+                        <td>2024年5月</td>
+                        <td>因2023年净资产为负、内部控制审计否定意见及持续经营能力存疑，被实施退市风险警示</td>
+                        <td>资产负债率114.49%，净资产为负</td>
+                    </tr>
+                    <tr>
+                        <td>2024年末</td>
+                        <td>通过1.1亿元债务豁免实现净资产转正</td>
+                        <td>年末净资产8179.62万元，但扣非净利润仍亏损7611.79万元</td>
+                    </tr>
+                    <tr>
+                        <td>2025年上半年</td>
+                        <td>营业总收入同比下滑9.47%</td>
+                        <td>归母净利润亏损3257万元，流动比率0.19，速动比率0.14</td>
+                    </tr>
+                </table>
+                
+                <div class="highlight">
+                    <p><strong>退市风险：</strong>若重整失败，法院裁定破产，公司股票将面临终止上市。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>二、石药集团的布局：产业协同与战略卡位</h2>
+            
+            <div class="subsection">
+                <h3>1. 重整方案：5.26亿现金+1.22亿国资跟投</h3>
+                <p>2024年7月，常德中院启动景峰医药预重整，石药集团作为牵头投资人的联合体最终中选。</p>
+                
+                <div class="data-grid">
+                    <div class="data-card">
+                        <h4>石药集团出资</h4>
+                        <p>5.26亿元现金认购股份取得控股权</p>
+                    </div>
+                    <div class="data-card">
+                        <h4>国资跟投</h4>
+                        <p>常德国资平台同步跟投1.22亿元</p>
+                    </div>
+                    <div class="data-card">
+                        <h4>合计注资</h4>
+                        <p>6.48亿元</p>
+                    </div>
+                </div>
+                
+                <p>这一资金规模，对连续五年亏损的景峰医药而言，无异于"久旱甘霖"。</p>
+            </div>
+            
+            <div class="subsection">
+                <h3>2. 产业协同：补足抗肿瘤管线短板</h3>
+                <p>石药集团看中的，是景峰医药在心血管、抗肿瘤与风湿骨病领域的管线布局。其核心资产大连德泽及其全资子公司金港药业，在抗肿瘤植物药领域具备独特优势。</p>
+                
+                <ul class="key-points">
+                    <li>国内获批的榄香烯类药品中，注射液仅有石药集团远大（大连）一家获批</li>
+                    <li>乳状注射液和口服乳的独家所有权属于金港药业</li>
+                    <li>对石药而言，通过重整获得这一资产，可快速补充抗肿瘤管线短板，实现产品矩阵扩容</li>
+                </ul>
+            </div>
+            
+            <div class="subsection">
+                <h3>3. 管理层渗透：石药系全面接管</h3>
+                <ul class="key-points">
+                    <li>2024年7月，景峰医药创始人叶湘武辞去董事长、总裁等职务</li>
+                    <li>石药系高管魏青杰、马学红分别出任公司总裁和财务负责人</li>
+                    <li>魏青杰和叶高静通过股东大会选举进入董事会，进一步强化石药系在决策层的控制力</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>三、重整关键：资产处置与债务化解</h2>
+            
+            <div class="subsection">
+                <h3>1. 核心资产"归巢"：大连德泽的司法博弈</h3>
+                <ul class="key-points">
+                    <li>景峰医药原控股子公司大连德泽药业有限公司因经营期限到期，于2023年11月进入清算程序</li>
+                    <li>2025年4月，石药集团联合多方成立常德景泽医药科技有限公司，在司法拍卖中吞下大连德泽的核心资产包</li>
+                    <li>9月，大连德泽股东达成一致，将经营期限改为无固定期限，撤回清算申请</li>
+                    <li>上海景峰拿回1.42亿元分红款，并通过减资操作收回5291万元投资款</li>
+                </ul>
+            </div>
+            
+            <div class="subsection">
+                <h3>2. 债务重组：188万货款引发的连锁反应</h3>
+                <ul class="key-points">
+                    <li>景峰医药曾因无力支付188万元办公家具货款，被供应商申请破产预重整</li>
+                    <li>2025年10月，公司公告子公司大连德泽以1168.61万元"友情价"向金港药业回购专利、厂房、设备和原材料</li>
+                    <li>这一交易不仅化解了债务纠纷，也为核心资产恢复生产扫清障碍</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>四、挑战与不确定性：重整之路仍布满荆棘</h2>
+            
+            <div class="subsection">
+                <h3>1. 营收持续下滑：核心产品竞争力不足</h3>
+                
+                <table class="finance-table">
+                    <tr>
+                        <th>时间</th>
+                        <th>营业收入</th>
+                        <th>同比增长</th>
+                    </tr>
+                    <tr>
+                        <td>2022年</td>
+                        <td>8.41亿元</td>
+                        <td>3.63%</td>
+                    </tr>
+                    <tr>
+                        <td>2023年</td>
+                        <td>6.57亿元</td>
+                        <td>-21.86%</td>
+                    </tr>
+                    <tr>
+                        <td>2024年</td>
+                        <td>4.16亿元</td>
+                        <td>-36.67%</td>
+                    </tr>
+                    <tr>
+                        <td>2025年上半年</td>
+                        <td>1.83亿元</td>
+                        <td>-9.47%</td>
+                    </tr>
+                </table>
+                
+                <p>主要产品参芎葡萄糖注射液等因未纳入医保目录、医保控费趋严等因素制约，销售收入持续下滑。若无法快速恢复核心产品市场竞争力，重整后的盈利前景仍存疑。</p>
+            </div>
+            
+            <div class="subsection">
+                <h3>2. 监管风险：重大资产重组审核</h3>
+                <p>景峰医药的重整方案涉及双重程序：根据《上市公司重大资产重组管理办法》，若回购常德景泽等资产规模超上市公司净资产50%，需同步履行重大重组审核程序。</p>
+                
+                <div class="highlight">
+                    <p><strong>时间风险：</strong>此类"重整+重组"并行案例的审核周期通常比单纯重整长3-6个月。若监管问询风险未妥善解决，可能延误重整进程。</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3>3. 市场博弈：股价已部分反映重整预期</h3>
+                <ul class="key-points">
+                    <li>2024年7月3日至9月13日，*ST景峰在54个交易日中收获46个涨停，区间累计涨幅超500%，堪称A股"涨停王"</li>
+                    <li>2025年6月摘星后，公司股价复牌首日即收跌3.32%，反映出市场对重整预期的部分消化</li>
+                    <li>若后续业绩未能兑现，可能面临"利好兑现即拐点"的风险</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>五、未来展望：石药能否书写"救赎"传奇？</h2>
+            
+            <div class="data-grid">
+                <div class="data-card">
+                    <h4>石药集团的战略考量</h4>
+                    <p>其抗肿瘤业务2023-2024年销售收入连续下滑16.4%和28.3%，核心产品被纳入集采进一步挤压利润空间。</p>
+                </div>
+                <div class="data-card">
+                    <h4>协同效应</h4>
+                    <p>通过获得榄香烯系列产品的独家所有权，石药可快速切入抗肿瘤植物药市场，与现有管线形成互补。</p>
+                </div>
+                <div class="data-card">
+                    <h4>多元化布局</h4>
+                    <p>景峰医药在中成药、心脑血管领域的业务基础，也可助力石药拓展多元化布局。</p>
+                </div>
+            </div>
+            
+            <div class="highlight">
+                <p><strong>关键考验：</strong>重整成功与否，仍取决于景峰医药能否在石药集团的支持下，实现核心产品市场复苏、债务结构优化和持续经营能力提升。若2025年报净资产仍未转正，可能触发财务类退市。</p>
+            </div>
+        </div>
+
+        <div class="conclusion">
+            <h2>结语</h2>
+            <p>ST景峰的重整，是A股市场困境企业自救的缩影。石药集团的5.26亿注资，为其提供了"保壳"的希望，但改写退市命运的关键，仍在于企业能否通过产业协同实现"造血"能力重生。在这场资本与时间的赛跑中，ST景峰的命运，或将为更多困境企业提供借鉴。</p>
+        </div>
+
+        <div class="wechat-section">
+            <div class="wechat-content">
+                <h3>公众号同步发布</h3>
+                <div class="wechat-qr">
+                    <!-- 公众号二维码图片 -->
+                    <img src="https://bingbook.cn/img/wx.png" alt="公众号二维码" style="width: 100%; height: 100%;">
+                </div>
+                <div class="wechat-text">
+                    <h3>扫描二维码关注我们</h3>
+                    <p>获取更多行业深度分析</p>
+                    <p>第一时间阅读最新商业洞察与趋势解读</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 冰书 bingbook.cn 版权所有 | 基于公众号冰书社运营的移动互联网媒体</p>
+        </div>
+    </div>
+</body>
+</html>
