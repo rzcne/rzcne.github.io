@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<!-- ico图标 -->
+    <link rel="shortcut icon" type="image/x-icon" sizes="16x16" href="https://bingbook.cn/ico/favicon16x16.ico">
+    <link rel="shortcut icon" type="image/x-icon" sizes="32x32" href="https://bingbook.cn/ico/favicon32x32.ico">
+    <link rel="shortcut icon" type="image/x-icon" sizes="48x48" href="https://bingbook.cn/ico/favicon48x48.ico">
+    <link rel="shortcut icon" type="image/x-icon" sizes="64x64" href="https://bingbook.cn/ico/favicon64x64.ico">
+    <link rel="shortcut icon" type="image/x-icon" sizes="128x128" href="https://bingbook.cn/ico/favicon128x128.ico">
+    <link rel="shortcut icon" type="image/x-icon" sizes="256x256" href="https://bingbook.cn/ico/favicon256x256.ico">
+    <link rel="shortcut icon" type="image/x-icon" sizes="512x512" href="https://bingbook.cn/ico/favicon512x512.ico">
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冰书服务状态监控</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #f5f6f7;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow-x: hidden;
+        }
+
+        .status-header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0;
+        }
+
+        .header-logo {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        .monitor-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .monitor-table th,
+        .monitor-table td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+            word-break: break-word;
+        }
+
+        .monitor-table th {
+            background: #f8f9fa;
+            color: #6c757d;
+            font-weight: 500;
+            min-width: 120px;
+        }
+
+        .monitor-table th:nth-child(2) { min-width: 240px; }
+        .monitor-table th:nth-child(6) { min-width: 180px; }
+
+        .monitor-table tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .up { background: #50b83c; }
+        .down { background: #e53935; }
+        .paused { background: #9e9e9e; }
+
+        .type-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        .status-summary {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .summary-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            flex: 1;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .incident-list {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .status-header {
+                padding: 15px;
+            }
+
+            .monitor-table {
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .monitor-table th,
+            .monitor-table td {
+                padding: 12px 15px;
+                font-size: 14px;
+                min-width: 100px;
+            }
+
+            .summary-item {
+                padding: 15px;
+                min-width: 150px;
+            }
+
+            .header-title {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .status-summary {
+                flex-direction: column;
+            }
+            
+            .header-title {
+                font-size: 22px;
+            }
+            
+            .status-header h2 {
+                font-size: 20px;
+            }
+
+            .monitor-table td {
+                padding: 10px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="status-header">
+            <h1 class="header-title">
+                <img src="https://bingbook.cn/img/logo.png" 
+                     class="header-logo" 
+                     alt="Logo">
+                冰书服务状态监控
+            </h1>
+            <div class="status-summary" id="status-summary">
+                <div class="summary-item">
+                    <h3 style="color: #50b83c">正在加载...</h3>
+                    <p>当前状态</p>
+                </div>
+                <div class="summary-item">
+                    <h3>-</h3>
+                    <p>过去30天可用率</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="status-header">
+            <h2>服务列表</h2>
+            <div style="overflow-x: auto">
+                <table class="monitor-table">
+                    <thead>
+                        <tr>
+                            <th>状态</th>
+                            <th>服务名称</th>
+                            <th>类型</th>
+                            <th>响应时间</th>
+                            <th>可用率</th>
+                            <th>最后检查</th>
+                        </tr>
+                    </thead>
+                    <tbody id="monitors-table"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="incident-list">
+            <h3>最近事件</h3>
+            <div id="incidents">正在加载事件...</div>
+        </div>
+    </div>
+
+<!-- JavaScript代码 -->
+<script>
+// 配置参数 ⚠️ 需要修改以下参数
+const API_KEY = 'ur2945200-dc1bc3a948ecd90e61edb1a3'; // API密钥
+const SHOW_LOGS = true; // 是否显示事件日志
+
+// 状态映射
+const STATUS_MAP = {
+    0: { text: '已暂停', class: 'paused' },
+    1: { text: '未检查', class: 'paused' },
+    2: { text: '正常运行', class: 'up' },
+    8: { text: '可能异常', class: 'down' },
+    9: { text: '服务异常', class: 'down' }
+};
+
+// 监控类型映射
+const MONITOR_TYPES = {
+    1: 'HTTP',
+    2: '关键词',
+    3: 'Ping',
+    4: '端口'
+};
+
+// 初始化加载
+document.addEventListener('DOMContentLoaded', () => {
+    fetchMonitors();
+    if(SHOW_LOGS) fetchIncidents();
+});
+
+// 获取监控列表
+async function fetchMonitors() {
+    try {
+        const response = await fetch('https://api.uptimerobot.com/v2/getMonitors', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                api_key: API_KEY,
+                format: 'json',
+                response_times: 1,
+                custom_uptime_ratios: '30'
+            })
+        });
+        
+        const data = await response.json();
+        if(data.stat === 'ok') {
+            renderSummary(data.monitors);
+            renderMonitors(data.monitors);
+        }
+    } catch (error) {
+        console.error('获取数据失败:', error);
+        showError('数据加载失败，请检查API密钥');
+    }
+}
+
+// 渲染状态概览
+function renderSummary(monitors) {
+    const summaryContainer = document.getElementById('status-summary');
+    const upMonitors = monitors.filter(m => m.status === 2).length;
+    const totalMonitors = monitors.length;
+    
+    summaryContainer.innerHTML = `
+        <div class="summary-item">
+            <h3 style="color: ${totalMonitors === upMonitors ? '#50b83c' : '#e53935'}">
+                ${upMonitors}/${totalMonitors} 服务正常
+            </h3>
+            <p>当前状态</p>
+        </div>
+        <div class="summary-item">
+            <h3>${calculateUptime(monitors)}%</h3>
+            <p>过去30天可用率</p>
+        </div>
+    `;
+}
+
+// 计算整体可用率
+function calculateUptime(monitors) {
+    const total = monitors.reduce((sum, m) => {
+        return sum + parseFloat(m.custom_uptime_ratio || 100);
+    }, 0);
+    return (total / monitors.length).toFixed(2);
+}
+
+// 渲染监控列表
+function renderMonitors(monitors) {
+    const tbody = document.getElementById('monitors-table');
+    tbody.innerHTML = '';
+    
+    monitors.forEach(monitor => {
+        const status = STATUS_MAP[monitor.status] || STATUS_MAP[0];
+        const row = document.createElement('tr');
+        
+        row.innerHTML = `
+            <td>
+                <div class="status-indicator">
+                    <div class="status-dot ${status.class}"></div>
+                    <span>${status.text}</span>
+                </div>
+            </td>
+            <td>
+                <div style="font-weight:500">${monitor.friendly_name}</div>
+                <div style="color:#666;font-size:13px">${monitor.url || monitor.host}</div>
+            </td>
+            <td><span class="type-badge">${MONITOR_TYPES[monitor.type]}</span></td>
+            <td>${monitor.response_times?.[0]?.value || 0}ms</td>
+            <td>${(monitor.custom_uptime_ratio || '100').slice(0,5)}%</td>
+            <td>${formatTime(monitor.datetime)}</td>
+        `;
+        
+        tbody.appendChild(row);
+    });
+}
+
+// 获取事件日志
+async function fetchIncidents() {
+    try {
+        const response = await fetch('https://api.uptimerobot.com/v2/getMonitors', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                api_key: API_KEY,
+                format: 'json',
+                logs: 1,
+                logs_limit: 5
+            })
+        });
+        
+        const data = await response.json();
+        if(data.stat === 'ok') {
+            renderIncidents(data.monitors);
+        }
+    } catch (error) {
+        console.error('获取日志失败:', error);
+    }
+}
+
+// 渲染事件日志
+function renderIncidents(monitors) {
+    const container = document.getElementById('incidents');
+    container.innerHTML = '';
+    
+    monitors.forEach(monitor => {
+        monitor.logs?.forEach(log => {
+            const div = document.createElement('div');
+            div.style.padding = '10px 0';
+            div.style.borderBottom = '1px solid #eee';
+            div.innerHTML = `
+                <div style="color:#666">${formatTime(log.datetime)}</div>
+                <div>${monitor.friendly_name}: ${log.reason?.detail || '状态变更'}</div>
+            `;
+            container.appendChild(div);
+        });
+    });
+}
+
+// 工具函数
+function formatTime(timestamp) {
+    const date = new Date(timestamp * 1000);
+    return date.toLocaleDateString() + ' ' + date.toLocaleTimeString().slice(0,5);
+}
+
+function showError(message) {
+    const container = document.getElementById('monitors-table');
+    container.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#e53935">${message}</td></tr>`;
+}
+</script>
+</body>
+</html>
