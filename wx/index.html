@@ -12,7 +12,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>冰书社 - 源于公众号冰书社的移动互联网媒体</title>
+    <title>冰书社 - 源于公众号的移动互联网媒体</title>
     <link rel="stylesheet" href="/css/font-awesome.css">
     <link href="/fonts/swap.css" rel="stylesheet">
     <style>
@@ -627,6 +627,15 @@
                 flex: 1;
                 width: 100%;
             }
+            
+            .qrcode-group {
+                flex-direction: column;
+            }
+            
+            .qrcode-group .qrcode-container {
+                flex: 1;
+                width: 100%;
+            }
         }
         
         @media (max-width: 768px) {
@@ -722,6 +731,20 @@
             transform: translateY(20px);
             transition: opacity 0.5s ease, transform 0.5s ease;
         }
+        
+        /* 二维码组样式 */
+        .qrcode-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .qrcode-group .qrcode-container {
+            flex: 0 0 calc(50% - 15px);
+            max-width: 350px;
+        }
     </style>
 </head>
 <body>
@@ -808,6 +831,20 @@
                     <p>扫描二维码关注"冰书社"公众号<br>获取每日精选内容推送</p>
                 </div>
             </div>
+            
+            <!-- 新增视频号二维码区域 -->
+            <div class="qrcode-group">
+                <div class="qrcode-container animated-element">
+                    <img src="/img/wx.png" alt="微信公众号二维码" class="qrcode-img">
+                    <h3>关注公众号</h3>
+                    <p>扫描二维码关注"冰书社"公众号<br>获取每日精选内容推送</p>
+                </div>
+                <div class="qrcode-container animated-element">
+                    <img src="/img/sph.jpg" alt="视频号二维码" class="qrcode-img">
+                    <h3>关注视频号</h3>
+                    <p>扫描二维码关注"冰书社"视频号<br>观看精彩视频内容</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -849,7 +886,7 @@
                     </div>
                     <div class="article-content">
                         <h3>春秋航空赚钱的秘密：天上没有免费的午餐</h3>
-                        <p>春秋航空用一场“抠门革命”重新定义了航空业的盈利逻辑</p>
+                        <p>春秋航空用一场"抠门革命"重新定义了航空业的盈利逻辑</p>
                         <a href="https://mp.weixin.qq.com/s/pYFCuGWy6y-KH4UQHLx2aA" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
@@ -895,7 +932,7 @@
                     </div>
                     <div class="article-content">
                         <h3>AI原生架构重塑企业AI战略落地底层逻辑</h3>
-                        <p>当OpenAI以万亿美元订单重构AI基础设施时，全球企业同步开启了一场以“AI原生架构”为核心的转型实验</p>
+                        <p>当OpenAI以万亿美元订单重构AI基础设施时，全球企业同步开启了一场以"AI原生架构"为核心的转型实验</p>
                         <a href="https://mp.weixin.qq.com/s/J0qoGgBWwxMZxNIo8eoWFQ" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
@@ -917,7 +954,7 @@
                     </div>
                     <div class="article-content">
                         <h3>情绪经济开启万亿赛道新纪元</h3>
-                        <p>2025年国庆黄金周，一位被称为“鸡排哥”的江西景德镇小摊主意外成为现象级IP。揭示着中国消费市场从“物质满足”向“情感共鸣”转型的深层逻辑。</p>
+                        <p>2025年国庆黄金周，一位被称为"鸡排哥"的江西景德镇小摊主意外成为现象级IP。揭示着中国消费市场从"物质满足"向"情感共鸣"转型的深层逻辑。</p>
                      <a href="https://mp.weixin.qq.com/s/foq_q1FKQUzro1fQD38Sgw" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
